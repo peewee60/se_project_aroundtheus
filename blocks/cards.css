@@ -43,6 +43,11 @@
   padding: 0;
   border: none;
   background-color: transparent;
+  transition: opacity 0.3s ease;
+}
+
+.card__like-button:hover {
+  opacity: 0.5;
 }
 
 .card__like-icon {
