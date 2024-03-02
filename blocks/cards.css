@@ -1,5 +1,6 @@
 .cards {
   margin-top: 51px;
+  margin-bottom: 67px;
   display: flex;
   flex-wrap: wrap;
   gap: 17px;
@@ -10,12 +11,16 @@
   height: 361px;
   background-color: #fff;
   color: #000;
-  border-radius: 5%;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .card__image {
   width: 282px;
   height: 282px;
+  margin: 0;
+  padding: 0;
 }
 
 .card__info {
