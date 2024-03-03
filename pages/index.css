@@ -4,12 +4,12 @@
 @import url(../blocks/header.css);
 @import url(../blocks/content.css);
 @import url(../blocks/profile.css);
-@import url(../blocks/cards.css);
+@import url(../blocks/gallery.css);
 @import url(../blocks/footer.css);
 
 @media screen and (max-width: 480px) {
   .page {
-    max-width: 100%;
+    max-width: 98%;
   }
 
   .header {
@@ -68,7 +68,7 @@
     margin: 36px auto 0;
   }
 
-  .cards {
+  /* .gallery {
     background-color: lightgreen;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -77,9 +77,9 @@
     align-items: center;
   }
 
-  .card {
+  .gallery__card {
     margin: 0 auto;
-  }
+  } */
 
   .footer {
     margin: 0 19px 36px;
