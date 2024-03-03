@@ -57,3 +57,18 @@
   width: 21px;
   height: 18px;
 }
+
+@media screen and (max-width: 480px) {
+  /* .gallery {
+    background-color: lightgreen;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    row-gap: 20px;
+    column-gap: 0;
+    align-items: center;
+  }
+
+  .gallery__card {
+    margin: 0 auto;
+  } */
+}
