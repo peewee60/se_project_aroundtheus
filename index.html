@@ -19,7 +19,7 @@
   </head>
   <body class="page">
     <div class="page__content">
-      <header class="header">
+      <header class="header page__section">
         <img
           class="header__logo"
           src="./images/logo.svg"
@@ -27,22 +27,24 @@
         />
       </header>
       <main class="content">
-        <section class="profile">
-          <img
-            class="profile__avatar"
-            src="./images/jacques_cousteau.jpg"
-            alt="Profile avatar"
-          />
-          <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau</h1>
-            <button class="profile__edit-button" type="button">
-              <img
-                class="profile__edit-icon"
-                src="./images/edit_icon.svg"
-                alt="Edit icon"
-              />
-            </button>
-            <p class="profile__subheading">Explorer</p>
+        <section class="profile page__section">
+          <div class="profile__wrapper">
+            <img
+              class="profile__avatar"
+              src="./images/jacques_cousteau.jpg"
+              alt="Profile avatar"
+            />
+            <div class="profile__info">
+              <h1 class="profile__name">Jacques Cousteau</h1>
+              <button class="profile__edit-button" type="button">
+                <img
+                  class="profile__edit-icon"
+                  src="./images/edit_icon.svg"
+                  alt="Edit icon"
+                />
+              </button>
+              <p class="profile__subheading">Explorer</p>
+            </div>
           </div>
           <button class="profile__add-button" type="button">
             <img
@@ -52,7 +54,7 @@
             />
           </button>
         </section>
-        <section class="gallery">
+        <section class="gallery page__section">
           <div class="gallery__card">
             <img
               class="gallery__image"
@@ -157,7 +159,7 @@
           </div>
         </section>
       </main>
-      <footer class="footer">
+      <footer class="footer page__section">
         <p class="footer__text">&copy; 2022 Around the U.S.</p>
       </footer>
     </div>
