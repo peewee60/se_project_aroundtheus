@@ -1,9 +1,9 @@
 .gallery {
-  margin-top: 51px;
-  margin-bottom: 67px;
   display: grid;
   grid-template-columns: repeat(auto-fit, 282px);
-  gap: 20px 17px;
+  row-gap: 20px;
+  column-gap: 17px;
+  justify-content: center;
 }
 
 .gallery__card {
@@ -56,19 +56,4 @@
 .gallery__like-icon {
   width: 21px;
   height: 18px;
-}
-
-@media screen and (max-width: 480px) {
-  /* .gallery {
-    background-color: lightgreen;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    row-gap: 20px;
-    column-gap: 0;
-    align-items: center;
-  }
-
-  .gallery__card {
-    margin: 0 auto;
-  } */
 }
