@@ -1,5 +1,5 @@
 .footer {
-  margin: 0 auto 60px;
+  margin: 67px auto 60px;
 }
 
 .footer__text {
@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 480px) {
   .footer {
-    margin: 0 19px 36px;
+    margin: 33px 19px 36px;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.2;
