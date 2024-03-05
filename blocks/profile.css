@@ -21,7 +21,6 @@
 .profile__info {
   font-family: Inter, Arial, sans-serif;
   font-weight: 400;
-  text-wrap: nowrap;
   display: grid;
   grid-template-areas:
     "title button"
@@ -35,12 +34,16 @@
   font-weight: 500;
   font-size: 42px;
   line-height: 48px;
+  text-wrap: nowrap;
 }
 
 .profile__subheading {
   margin: 0;
   font-size: 18px;
   line-height: 21.78px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__edit-button {
