@@ -20,6 +20,7 @@ https://peewee60.github.io/se_project_aroundtheus/
 
 ## Plan on improving the project
 
+- Make the footer a sticky footer so it stays at the bottom of the page if the main content area is smaller than the view height.
 - smooth transition from >480px to <480px, font size makes a big jump
 - smooth header height transition at 635px
 - add zoom effect to card photos when the card is hovered on
