@@ -1,8 +1,8 @@
 .header {
   /* max-width: 880px; */
-  height: 74px;
+  min-height: 74px;
   margin-top: 45px;
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
 .header__logo {
@@ -10,9 +10,16 @@
   height: 33px;
 }
 
+@media screen and (max-width: 930px) {
+  .header {
+    margin: 0 20px;
+    max-width: calc(100% - 40px);
+  }
+}
+
 @media screen and (max-width: 635px) {
   .header {
-    height: 56px;
+    min-height: 56px;
     margin: 28px auto 0;
   }
 
@@ -20,5 +27,12 @@
     width: 126px;
     height: 24px;
     margin-left: 19px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    margin: 28 0 0;
+    max-width: 100%;
   }
 }

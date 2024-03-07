@@ -35,6 +35,10 @@
   font-size: 42px;
   line-height: 1.2;
   text-wrap: nowrap;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 373px;
 }
 
 .profile__subheading {
@@ -44,6 +48,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 373px;
 }
 
 .profile__edit-button {
@@ -51,13 +59,16 @@
   height: 24px;
   padding: 0;
   border: 1px solid #fff;
-  background-color: #000;
+  background-color: transparent;
   transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile__edit-button:hover {
   opacity: 0.6;
-  /* cursor: url(../images/pointer.svg), pointer; */
+  cursor: pointer;
 }
 
 .profile__edit-icon {
@@ -70,13 +81,24 @@
   height: 50px;
   margin: auto 0 auto auto;
   border: 2px solid #fff;
-  background-color: #000;
+  border-radius: 2px;
+  background-color: transparent;
   transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile__add-button:hover {
   opacity: 0.6;
-  /* cursor: url(../images/pointer.svg), pointer; */
+  cursor: pointer;
+}
+
+@media screen and (max-width: 930px) {
+  .profile {
+    margin: 0 20px;
+    max-width: calc(100% - 40px);
+  }
 }
 
 @media screen and (max-width: 780px) {
@@ -102,39 +124,27 @@
     width: 282px;
     height: 50px;
     margin: 36px auto;
-    border: 2px solid #fff;
-    background-color: #000;
-    transition: opacity 0.3s ease;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .profile__info {
-    gap: 14px 10px;
+  .profile {
+    margin: 0;
+    max-width: 100%;
   }
 
   .profile__name {
     font-size: 22px;
-    font-weight: 500;
-    line-height: 1.2;
     text-align: center;
   }
 
   .profile__subheading {
     font-size: 14px;
-    font-weight: 400;
-    line-height: 1.2;
     text-align: center;
   }
 
   .profile__edit-button {
     width: 18px;
     height: 18px;
-  }
-
-  .profile__add-button {
-    width: 282px;
-    height: 50px;
-    margin: 36px auto 0;
   }
 }
