@@ -7,7 +7,7 @@ This is the third project of the Software Engineering bootcamp at TripleTen. It 
 The project is hosted using GitHub pages:
 https://peewee60.github.io/se_project_aroundtheus/
 
-![Link to project video](https://drive.google.com/file/d/17JpI6Ht4WnHAZcE5I0O9mq9Ll3ignX15/view?usp=drive_link)
+[Link to project video](https://drive.google.com/file/d/17JpI6Ht4WnHAZcE5I0O9mq9Ll3ignX15/view?usp=drive_link)
 
 ## Project features
 
