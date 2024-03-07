@@ -21,12 +21,11 @@
 
 @media screen and (max-width: 480px) {
   .footer {
-    margin: 33px 19px 36px;
+    margin: 48px 19px 36px;
   }
 
   .footer__text {
     font-size: 14px;
-    line-height: 1.2;
     text-align: left;
   }
 }

@@ -130,6 +130,7 @@
 @media screen and (max-width: 480px) {
   .profile {
     margin: 0;
+    padding: 42px 0 0;
     max-width: 100%;
   }
 
