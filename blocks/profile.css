@@ -35,10 +35,10 @@
   font-size: 42px;
   line-height: 1.2;
   text-wrap: nowrap;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 373px;
+  max-width: 373px; */
 }
 
 .profile__subheading {
@@ -98,6 +98,13 @@
   .profile {
     margin: 0 20px;
     max-width: calc(100% - 40px);
+  }
+
+  .profile__name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 373px;
   }
 }
 
