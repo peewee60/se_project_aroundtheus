@@ -25,18 +25,36 @@ let initialCards = [
   },
 ];
 
-let page = document.querySelector(".page");
-let content = document.querySelector(".page__content");
-let modal = document.querySelector(".modal");
+// Create variables for .page, .page__content, and .modal
+const page = document.querySelector(".page");
+const content = document.querySelector(".page__content");
+const modal = document.querySelector(".modal");
 
-let profileEditButton = document.querySelector(".profile__edit-button");
+// Create variables for ".profile__edit-button", ".modal__close-button"
+// and ".modal__submit-button"
+const profileEditButton = document.querySelector(".profile__edit-button");
+const modalCloseButton = document.querySelector(".modal__close-button");
+const modalSubmitButton = document.querySelector(".modal__submit-button");
 
+// Event listenter for profile edit button click
 profileEditButton.addEventListener("click", function () {
+  // Create variables for the profile name and description inputs
+  let profileNameInput = modal.querySelector(".modal__input_type_name");
+  let profileDescriptionInput = modal.querySelector(
+    ".modal__input_type_description"
+  );
+  // Set the value of the profile name and description inputs to the current
+  // profile name and description
+  profileNameInput.value = content.querySelector(".profile__name").innerText;
+  profileDescriptionInput.value = content.querySelector(
+    ".profile__description"
+  ).innerText;
+  // Open the modal
   page.querySelector(".modal").classList.add("modal_opened");
 });
 
-let modalCloseButton = document.querySelector(".modal__close-button");
-
+// Event listener for modal close button click
 modalCloseButton.addEventListener("click", function () {
+  // Close modal
   page.querySelector(".modal").classList.remove("modal_opened");
 });
