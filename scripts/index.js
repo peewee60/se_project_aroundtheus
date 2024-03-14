@@ -58,3 +58,59 @@ modalCloseButton.addEventListener("click", function () {
   // Close modal
   page.querySelector(".modal").classList.remove("modal_opened");
 });
+
+// // Event listener for modal profile submit button click
+// modalSubmitButton.addEventListener("click", function () {
+//   // Create variables for profile name and description HTML
+//   let profileNameHTML = content.querySelector(".profile__name");
+//   let profileDescriptionHTML = content.querySelector(".profile__description");
+
+//   // Create variables for the profile name and description inputs
+//   let profileNameInput = modal.querySelector(".modal__input_type_name");
+//   let profileDescriptionInput = modal.querySelector(
+//     ".modal__input_type_description"
+//   );
+
+//   // Set the value of the profile name and description inputs to the current
+//   // profile name and description
+//   profileNameHTML.innerText = profileNameInput.value;
+//   profileDescriptionHTML.innerText = profileDescriptionInput.value;
+
+//   // Close modal
+//   page.querySelector(".modal").classList.remove("modal_opened");
+// });
+
+// find the form in the DOM
+const profileFormElement = modal.querySelector(".modal__form");
+
+// find the form fields in the DOM
+const nameInput = profileFormElement.querySelector(".modal__input_type_name");
+const descriptionInput = profileFormElement.querySelector(
+  ".modal__input_type_description"
+);
+
+// find the profile elements in the DOM
+const profileName = content.querySelector(".profile__name");
+const profileDescription = content.querySelector(".profile__description");
+
+// the form submission handler. Note that its name
+// starts with a verb and concisely describes what it does
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+
+  // get the values of each field from the value property
+  // of the corresponding input element
+  console.log(nameInput.value);
+  console.log(descriptionInput.value);
+  let nameInputValue = nameInput.value;
+  let descriptionInputValue = descriptionInput.value;
+
+  // insert new values into the textContent property of the
+  // corresponding profile elements
+  profileName.textContent = nameInputValue;
+  profileDescription.textContent = descriptionInputValue;
+}
+
+// connect the handler to the form:
+// it will watch the submit event
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
