@@ -30,6 +30,30 @@ const page = document.querySelector(".page");
 const content = document.querySelector(".page__content");
 const modal = document.querySelector(".modal");
 
+//////// Render cards ////////
+let cardTemplate = content.querySelector("#card-template").content;
+let cardGallery = content.querySelector(".gallery__cards");
+
+function getCardElement(data) {
+  let cardElement = cardTemplate.cloneNode(true);
+
+  console.log(data["link"]);
+  console.log(data["name"]);
+  console.log(data["name"]);
+
+  cardElement.querySelector(".card__image").src = data["link"];
+  cardElement.querySelector(".card__image").alt = data["name"];
+  cardElement.querySelector(".card__title").textContent = data["name"];
+
+  return cardElement;
+}
+
+for (card of initialCards) {
+  cardGallery.append(getCardElement(card));
+}
+
+//////// Edit profile modal ////////
+
 // Create variables for ".profile__edit-button", ".modal__close-button"
 // and ".modal__submit-button"
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -100,8 +124,6 @@ function handleProfileFormSubmit(evt) {
 
   // get the values of each field from the value property
   // of the corresponding input element
-  console.log(nameInput.value);
-  console.log(descriptionInput.value);
   let nameInputValue = nameInput.value;
   let descriptionInputValue = descriptionInput.value;
 
