@@ -81,27 +81,6 @@ modalCloseButton.addEventListener("click", function () {
   page.querySelector(".modal").classList.remove("modal_opened");
 });
 
-// // Event listener for modal profile submit button click
-// modalSubmitButton.addEventListener("click", function () {
-//   // Create variables for profile name and description HTML
-//   let profileNameHTML = content.querySelector(".profile__name");
-//   let profileDescriptionHTML = content.querySelector(".profile__description");
-
-//   // Create variables for the profile name and description inputs
-//   let profileNameInput = modal.querySelector(".modal__input_type_name");
-//   let profileDescriptionInput = modal.querySelector(
-//     ".modal__input_type_description"
-//   );
-
-//   // Set the value of the profile name and description inputs to the current
-//   // profile name and description
-//   profileNameHTML.innerText = profileNameInput.value;
-//   profileDescriptionHTML.innerText = profileDescriptionInput.value;
-
-//   // Close modal
-//   page.querySelector(".modal").classList.remove("modal_opened");
-// });
-
 // find the form in the DOM
 const profileFormElement = modal.querySelector(".modal__form");
 
