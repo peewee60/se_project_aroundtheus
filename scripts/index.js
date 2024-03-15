@@ -1,4 +1,4 @@
-let initialCards = [
+const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -36,14 +36,12 @@ let cardGallery = content.querySelector(".gallery__cards");
 
 function getCardElement(data) {
   let cardElement = cardTemplate.cloneNode(true);
+  let cardImage = cardElement.querySelector(".card__image");
+  let cardTitle = cardElement.querySelector(".card__title");
 
-  console.log(data["link"]);
-  console.log(data["name"]);
-  console.log(data["name"]);
-
-  cardElement.querySelector(".card__image").src = data["link"];
-  cardElement.querySelector(".card__image").alt = data["name"];
-  cardElement.querySelector(".card__title").textContent = data["name"];
+  cardImage.src = data["link"];
+  cardImage.alt = data["name"];
+  cardTitle.textContent = data["name"];
 
   return cardElement;
 }
@@ -131,6 +129,9 @@ function handleProfileFormSubmit(evt) {
   // corresponding profile elements
   profileName.textContent = nameInputValue;
   profileDescription.textContent = descriptionInputValue;
+
+  // Close modal
+  page.querySelector(".modal").classList.remove("modal_opened");
 }
 
 // connect the handler to the form:
