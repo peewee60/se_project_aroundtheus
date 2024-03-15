@@ -35,10 +35,6 @@
   font-size: 42px;
   line-height: 1.2;
   text-wrap: nowrap;
-  /* text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 373px; */
 }
 
 .profile__description {
@@ -100,17 +96,24 @@
     max-width: calc(100% - 40px);
   }
 
-  .profile__name {
+  /* .profile__name {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     max-width: 373px;
-  }
+  } */
 }
 
 @media screen and (max-width: 780px) {
   .profile {
     flex-direction: column;
+  }
+
+  .profile__name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 373px;
   }
 
   .profile__wrapper {
