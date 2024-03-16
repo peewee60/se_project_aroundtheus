@@ -57,28 +57,41 @@ for (card of initialCards) {
 const profileEditButton = document.querySelector(".profile__edit-button");
 const modalCloseButton = document.querySelector(".modal__close-button");
 const modalSubmitButton = document.querySelector(".modal__submit-button");
+// Create variables for the profile name and description inputs
+let profileNameInput = modal.querySelector(".modal__input_type_name");
+let profileDescriptionInput = modal.querySelector(
+  ".modal__input_type_description"
+);
 
-// Event listenter for profile edit button click
-profileEditButton.addEventListener("click", function () {
-  // Create variables for the profile name and description inputs
-  let profileNameInput = modal.querySelector(".modal__input_type_name");
-  let profileDescriptionInput = modal.querySelector(
-    ".modal__input_type_description"
-  );
-  // Set the value of the profile name and description inputs to the current
-  // profile name and description
+// Fuction for setting values of profile form fields
+function fillProfileForm() {
   profileNameInput.value = content.querySelector(".profile__name").innerText;
   profileDescriptionInput.value = content.querySelector(
     ".profile__description"
   ).innerText;
+}
+
+// Fuction to open edit profile modal
+function openEditProfileModal() {
+  fillProfileForm();
   // Open the modal
   page.querySelector(".modal").classList.add("modal_opened");
+}
+
+// Fuction to close edit profile modal
+function closeEditProfileModal() {
+  // Close modal
+  page.querySelector(".modal").classList.remove("modal_opened");
+}
+
+// Event listenter for profile edit button click
+profileEditButton.addEventListener("click", function () {
+  openEditProfileModal();
 });
 
 // Event listener for modal close button click
 modalCloseButton.addEventListener("click", function () {
-  // Close modal
-  page.querySelector(".modal").classList.remove("modal_opened");
+  closeEditProfileModal();
 });
 
 // find the form in the DOM
