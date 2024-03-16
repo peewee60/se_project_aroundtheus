@@ -31,11 +31,11 @@ const content = document.querySelector(".page__content");
 const modal = document.querySelector(".modal");
 
 //////// Render cards ////////
-let cardTemplate = content.querySelector("#card-template").content;
-let cardGallery = content.querySelector(".gallery__cards");
+const cardTemplate = content.querySelector("#card-template").content;
+const cardGallery = content.querySelector(".gallery__cards");
 
 function getCardElement(data) {
-  let cardElement = cardTemplate.cloneNode(true);
+  const cardElement = cardTemplate.cloneNode(true);
   let cardImage = cardElement.querySelector(".card__image");
   let cardTitle = cardElement.querySelector(".card__title");
 
@@ -58,8 +58,8 @@ const profileEditButton = document.querySelector(".profile__edit-button");
 const modalCloseButton = document.querySelector(".modal__close-button");
 const modalSubmitButton = document.querySelector(".modal__submit-button");
 // Create variables for the profile name and description inputs
-let profileNameInput = modal.querySelector(".modal__input_type_name");
-let profileDescriptionInput = modal.querySelector(
+const profileNameInput = modal.querySelector(".modal__input_type_name");
+const profileDescriptionInput = modal.querySelector(
   ".modal__input_type_description"
 );
 
@@ -114,16 +114,15 @@ function handleProfileFormSubmit(evt) {
 
   // get the values of each field from the value property
   // of the corresponding input element
-  let nameInputValue = nameInput.value;
-  let descriptionInputValue = descriptionInput.value;
+  const nameInputValue = nameInput.value;
+  const descriptionInputValue = descriptionInput.value;
 
   // insert new values into the textContent property of the
   // corresponding profile elements
   profileName.textContent = nameInputValue;
   profileDescription.textContent = descriptionInputValue;
 
-  // Close modal
-  page.querySelector(".modal").classList.remove("modal_opened");
+  closeEditProfileModal();
 }
 
 // connect the handler to the form:

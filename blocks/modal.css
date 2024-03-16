@@ -36,9 +36,11 @@
   background-image: url(../images/close_icon.svg);
   background-repeat: no-repeat;
   background-size: contain;
+  transition: opacity 0.3s ease;
 }
 
 .modal__close-button:hover {
+  opacity: 0.6;
   cursor: pointer;
 }
 
@@ -78,9 +80,11 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.2;
+  transition: opacity 0.3s ease;
 }
 
 .modal__submit-button:hover {
+  opacity: 0.6;
   cursor: pointer;
 }
 
