@@ -143,6 +143,12 @@ const addCardButton = content.querySelector(".profile__add-button");
 const addCardCloseButton = addCardModal.querySelector(".modal__close-button");
 const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
 
+// Create variables for the card title and url inputs
+const newCardTitleInput = addCardModal.querySelector(
+  ".modal__input_type_title"
+);
+const newCardUrlInput = addCardModal.querySelector(".modal__input_type_url");
+
 // Fuction to open add card modal
 function openAddCardModal() {
   addCardModal.classList.add("modal_opened");
@@ -162,3 +168,36 @@ addCardButton.addEventListener("click", function () {
 addCardCloseButton.addEventListener("click", function () {
   closeAddCardModal();
 });
+
+// find the form in the DOM
+const addCardFormElement = addCardModal.querySelector(".modal__form");
+
+// find the form fields in the DOM
+const titleInput = addCardModal.querySelector(".modal__input_type_title");
+const urlInput = addCardModal.querySelector(".modal__input_type_url");
+
+// the form submission handler. Note that its name
+// starts with a verb and concisely describes what it does
+function handleAddCardFormSubmit(evt) {
+  evt.preventDefault();
+
+  // get the values of each field from the value property
+  // of the corresponding input element
+  const titleInputValue = titleInput.value;
+  const urlInputValue = urlInput.value;
+
+  // create new card data
+  const newCard = {
+    name: titleInputValue,
+    link: urlInputValue,
+  };
+
+  // Add new card to begining of card gallery
+  cardGallery.prepend(getCardElement(newCard));
+
+  closeAddCardModal();
+}
+
+// connect the handler to the form:
+// it will watch the submit event
+addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
