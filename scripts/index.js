@@ -25,16 +25,17 @@ const initialCards = [
   },
 ];
 
-// Create variables for .page, .page__content, and .modal
+//  Variables for .page, .page__content
 const page = document.querySelector(".page");
 const content = document.querySelector(".page__content");
+// Modals
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const addCardModal = document.querySelector("#add-card-modal");
-
-//////// Render cards ////////
+// Card template amd gallery
 const cardTemplate = content.querySelector("#card-template").content;
 const cardGallery = content.querySelector(".gallery__cards");
 
+//////// Render cards ////////
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   let cardImage = cardElement.querySelector(".card__image");
