@@ -46,9 +46,9 @@ function getCardElement(data) {
   return cardElement;
 }
 
-for (card of initialCards) {
+initialCards.forEach((card) => {
   cardGallery.append(getCardElement(card));
-}
+});
 
 //////// Edit profile modal ////////
 
