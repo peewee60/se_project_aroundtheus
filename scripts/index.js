@@ -25,15 +25,43 @@ const initialCards = [
   },
 ];
 
-//  Variables for .page, .page__content
+// Wrappers
 const page = document.querySelector(".page");
 const content = document.querySelector(".page__content");
-// Modals
-const editProfileModal = document.querySelector("#edit-profile-modal");
-const addCardModal = document.querySelector("#add-card-modal");
-// Card template amd gallery
+const profileName = content.querySelector(".profile__name");
+const profileDescription = content.querySelector(".profile__description");
 const cardTemplate = content.querySelector("#card-template").content;
 const cardGallery = content.querySelector(".gallery__cards");
+const editProfileModal = document.querySelector("#edit-profile-modal");
+const profileFormElement = editProfileModal.querySelector(".modal__form");
+const addCardModal = document.querySelector("#add-card-modal");
+const addCardFormElement = addCardModal.querySelector(".modal__form");
+
+// Buttons and other DOM nodes
+const profileEditButton = content.querySelector(".profile__edit-button");
+const editProfileCloseButton = editProfileModal.querySelector(
+  ".modal__close-button"
+);
+const editProfileSubmitButton = editProfileModal.querySelector(
+  ".modal__submit-button"
+);
+const addCardButton = content.querySelector(".profile__add-button");
+const addCardCloseButton = addCardModal.querySelector(".modal__close-button");
+const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
+
+// Form data
+const profileNameInput = profileFormElement.querySelector(
+  ".modal__input_type_name"
+);
+const profileDescriptionInput = profileFormElement.querySelector(
+  ".modal__input_type_description"
+);
+const newCardTitleInput = addCardFormElement.querySelector(
+  ".modal__input_type_title"
+);
+const newCardUrlInput = addCardFormElement.querySelector(
+  ".modal__input_type_url"
+);
 
 //////// Render cards ////////
 function getCardElement(data) {
@@ -52,25 +80,9 @@ initialCards.forEach((card) => {
   cardGallery.append(getCardElement(card));
 });
 
+//////// Like button ////////
+
 //////// Edit profile modal ////////
-
-// Create variables for ".profile__edit-button", ".modal__close-button"
-// and ".modal__submit-button"
-const profileEditButton = content.querySelector(".profile__edit-button");
-const editProfileCloseButton = editProfileModal.querySelector(
-  ".modal__close-button"
-);
-const editProfileSubmitButton = editProfileModal.querySelector(
-  ".modal__submit-button"
-);
-// Create variables for the profile name and description inputs
-const profileNameInput = editProfileModal.querySelector(
-  ".modal__input_type_name"
-);
-const profileDescriptionInput = editProfileModal.querySelector(
-  ".modal__input_type_description"
-);
-
 // Fuction for setting values of profile form fields
 function fillProfileForm() {
   profileNameInput.value = content.querySelector(".profile__name").innerText;
@@ -102,19 +114,6 @@ editProfileCloseButton.addEventListener("click", function () {
   closeEditProfileModal();
 });
 
-// find the form in the DOM
-const profileFormElement = editProfileModal.querySelector(".modal__form");
-
-// find the form fields in the DOM
-const nameInput = profileFormElement.querySelector(".modal__input_type_name");
-const descriptionInput = profileFormElement.querySelector(
-  ".modal__input_type_description"
-);
-
-// find the profile elements in the DOM
-const profileName = content.querySelector(".profile__name");
-const profileDescription = content.querySelector(".profile__description");
-
 // the form submission handler. Note that its name
 // starts with a verb and concisely describes what it does
 function handleProfileFormSubmit(evt) {
@@ -122,8 +121,8 @@ function handleProfileFormSubmit(evt) {
 
   // get the values of each field from the value property
   // of the corresponding input element
-  const nameInputValue = nameInput.value;
-  const descriptionInputValue = descriptionInput.value;
+  const nameInputValue = profileNameInput.value;
+  const descriptionInputValue = profileDescriptionInput.value;
 
   // insert new values into the textContent property of the
   // corresponding profile elements
@@ -138,18 +137,6 @@ function handleProfileFormSubmit(evt) {
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 //////// Add card modal ////////
-
-// Create variables for ".modal__close-button" and ".modal__submit-button"
-const addCardButton = content.querySelector(".profile__add-button");
-const addCardCloseButton = addCardModal.querySelector(".modal__close-button");
-const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
-
-// Create variables for the card title and url inputs
-const newCardTitleInput = addCardModal.querySelector(
-  ".modal__input_type_title"
-);
-const newCardUrlInput = addCardModal.querySelector(".modal__input_type_url");
-
 // Fuction to open add card modal
 function openAddCardModal() {
   addCardModal.classList.add("modal_opened");
@@ -170,13 +157,6 @@ addCardCloseButton.addEventListener("click", function () {
   closeAddCardModal();
 });
 
-// find the form in the DOM
-const addCardFormElement = addCardModal.querySelector(".modal__form");
-
-// find the form fields in the DOM
-const titleInput = addCardModal.querySelector(".modal__input_type_title");
-const urlInput = addCardModal.querySelector(".modal__input_type_url");
-
 // the form submission handler. Note that its name
 // starts with a verb and concisely describes what it does
 function handleAddCardFormSubmit(evt) {
@@ -184,8 +164,8 @@ function handleAddCardFormSubmit(evt) {
 
   // get the values of each field from the value property
   // of the corresponding input element
-  const titleInputValue = titleInput.value;
-  const urlInputValue = urlInput.value;
+  const titleInputValue = newCardTitleInput.value;
+  const urlInputValue = newCardUrlInput.value;
 
   // create new card data
   const newCard = {
