@@ -1,3 +1,4 @@
+//// initial data ////
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -25,7 +26,7 @@ const initialCards = [
   },
 ];
 
-// Wrappers
+//// Wrappers ////
 const page = document.querySelector(".page");
 const content = document.querySelector(".page__content");
 const profileName = content.querySelector(".profile__name");
@@ -37,7 +38,7 @@ const profileFormElement = editProfileModal.querySelector(".modal__form");
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 
-// Buttons and other DOM nodes
+//// Buttons and other DOM nodes ////
 const profileEditButton = content.querySelector(".profile__edit-button");
 const editProfileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
@@ -49,7 +50,7 @@ const addCardButton = content.querySelector(".profile__add-button");
 const addCardCloseButton = addCardModal.querySelector(".modal__close-button");
 const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
 
-// Form data
+//// Form data ////
 const profileNameInput = profileFormElement.querySelector(
   ".modal__input_type_name"
 );
@@ -63,7 +64,7 @@ const newCardUrlInput = addCardFormElement.querySelector(
   ".modal__input_type_url"
 );
 
-//////// Render cards ////////
+//// Functions ////
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   let cardImage = cardElement.querySelector(".card__image");
@@ -76,14 +77,15 @@ function getCardElement(data) {
   return cardElement;
 }
 
-initialCards.forEach((card) => {
-  cardGallery.append(getCardElement(card));
-});
+function openModal(modal) {
+  return modal.classList.add("modal_opened");
+}
 
-//////// Like button ////////
+function closeModal(modal) {
+  return modal.classList.remove("modal_opened");
+}
 
-//////// Edit profile modal ////////
-// Fuction for setting values of profile form fields
+// set values of profile form fields
 function fillProfileForm() {
   profileNameInput.value = content.querySelector(".profile__name").innerText;
   profileDescriptionInput.value = content.querySelector(
@@ -91,31 +93,13 @@ function fillProfileForm() {
   ).innerText;
 }
 
-// Fuction to open edit profile modal
+// open edit profile modal
 function openEditProfileModal() {
   fillProfileForm();
-  // Open the modal
-  editProfileModal.classList.add("modal_opened");
+  openModal(editProfileModal);
 }
 
-// Fuction to close edit profile modal
-function closeEditProfileModal() {
-  // Close modal
-  editProfileModal.classList.remove("modal_opened");
-}
-
-// Event listenter for profile edit button click
-profileEditButton.addEventListener("click", function () {
-  openEditProfileModal();
-});
-
-// Event listener for modal close button click
-editProfileCloseButton.addEventListener("click", function () {
-  closeEditProfileModal();
-});
-
-// the form submission handler. Note that its name
-// starts with a verb and concisely describes what it does
+// profile form submission handler
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
@@ -129,36 +113,10 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameInputValue;
   profileDescription.textContent = descriptionInputValue;
 
-  closeEditProfileModal();
+  closeModal(editProfileModal);
 }
 
-// connect the handler to the form:
-// it will watch the submit event
-profileFormElement.addEventListener("submit", handleProfileFormSubmit);
-
-//////// Add card modal ////////
-// Fuction to open add card modal
-function openAddCardModal() {
-  addCardModal.classList.add("modal_opened");
-}
-
-// Fuction to close add card modal
-function closeAddCardModal() {
-  addCardModal.classList.remove("modal_opened");
-}
-
-// Event listenter for profile edit button click
-addCardButton.addEventListener("click", function () {
-  openAddCardModal();
-});
-
-// Event listener for modal close button click
-addCardCloseButton.addEventListener("click", function () {
-  closeAddCardModal();
-});
-
-// the form submission handler. Note that its name
-// starts with a verb and concisely describes what it does
+// Add card form submission handler
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
 
@@ -176,9 +134,37 @@ function handleAddCardFormSubmit(evt) {
   // Add new card to begining of card gallery
   cardGallery.prepend(getCardElement(newCard));
 
-  closeAddCardModal();
+  closeModal(addCardModal);
 }
 
-// connect the handler to the form:
-// it will watch the submit event
+///// Event Handlers ////
+// profile edit button click
+profileEditButton.addEventListener("click", function () {
+  openEditProfileModal();
+});
+
+// profile modal close button click
+editProfileCloseButton.addEventListener("click", function () {
+  closeModal(editProfileModal);
+});
+
+// profile form submit event
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+// add card button click
+addCardButton.addEventListener("click", function () {
+  openModal(addCardModal);
+});
+
+// add card modal close button click
+addCardCloseButton.addEventListener("click", function () {
+  closeModal(addCardModal);
+});
+
+// add card form submit event
 addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
+
+//// Render initial cards ////
+initialCards.forEach((card) => {
+  cardGallery.append(getCardElement(card));
+});
