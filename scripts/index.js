@@ -85,7 +85,6 @@ function closeModal(modal) {
   return modal.classList.remove("modal_opened");
 }
 
-// set values of profile form fields
 function fillProfileForm() {
   profileNameInput.value = content.querySelector(".profile__name").innerText;
   profileDescriptionInput.value = content.querySelector(
@@ -93,12 +92,22 @@ function fillProfileForm() {
   ).innerText;
 }
 
-// open edit profile modal
 function openEditProfileModal() {
   fillProfileForm();
   openModal(editProfileModal);
 }
 
+function toggleLikeButton(button) {
+  button.classList.toggle("card__like-button_active");
+}
+
+function addLikeButtonListener(button) {
+  button.addEventListener("click", () => {
+    toggleLikeButton(button);
+  });
+}
+
+//// Form handlers ////
 // profile form submission handler
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -126,25 +135,30 @@ function handleAddCardFormSubmit(evt) {
   const urlInputValue = newCardUrlInput.value;
 
   // create new card data
-  const newCard = {
+  const newCardData = {
     name: titleInputValue,
     link: urlInputValue,
   };
 
   // Add new card to begining of card gallery
-  cardGallery.prepend(getCardElement(newCard));
+  cardGallery.prepend(getCardElement(newCardData));
+
+  // create event listener for new cards like button
+  const newCard = cardGallery.querySelector(".card");
+  const cardLikeButton = newCard.querySelector(".card__like-button");
+  addLikeButtonListener(cardLikeButton);
 
   closeModal(addCardModal);
 }
 
 ///// Event Handlers ////
 // profile edit button click
-profileEditButton.addEventListener("click", function () {
+profileEditButton.addEventListener("click", () => {
   openEditProfileModal();
 });
 
 // profile modal close button click
-editProfileCloseButton.addEventListener("click", function () {
+editProfileCloseButton.addEventListener("click", () => {
   closeModal(editProfileModal);
 });
 
@@ -152,12 +166,12 @@ editProfileCloseButton.addEventListener("click", function () {
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 // add card button click
-addCardButton.addEventListener("click", function () {
+addCardButton.addEventListener("click", () => {
   openModal(addCardModal);
 });
 
 // add card modal close button click
-addCardCloseButton.addEventListener("click", function () {
+addCardCloseButton.addEventListener("click", () => {
   closeModal(addCardModal);
 });
 
@@ -167,4 +181,11 @@ addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 //// Render initial cards ////
 initialCards.forEach((card) => {
   cardGallery.append(getCardElement(card));
+});
+
+// Select all card like buttons after cards have been rendered
+const cardLikeButton = content.querySelectorAll(".card__like-button");
+// add click listener to each like button
+cardLikeButton.forEach((likeButton) => {
+  addLikeButtonListener(likeButton);
 });
