@@ -15,13 +15,19 @@
 }
 
 .modal__container {
-  width: 430px;
   position: relative;
   margin: auto;
+}
+
+.modal__container_type_form {
+  width: 430px;
   padding: 36px;
   border-radius: 10px;
   background-color: #fff;
   color: #000;
+}
+
+.modal__container_type_image {
 }
 
 .modal__close-button {
