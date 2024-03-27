@@ -103,6 +103,34 @@ function addLikeButtonListener(button) {
   });
 }
 
+///// Event Handlers ////
+// profile edit button click
+profileEditButton.addEventListener("click", () => {
+  openEditProfileModal();
+});
+
+// profile modal close button click
+editProfileCloseButton.addEventListener("click", () => {
+  toggleModal(editProfileModal);
+});
+
+// add card button click
+addCardButton.addEventListener("click", () => {
+  toggleModal(addCardModal);
+});
+
+// add card modal close button click
+addCardCloseButton.addEventListener("click", () => {
+  toggleModal(addCardModal);
+});
+
+//// Form submit listeners ////
+// profile form submit event
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+// add card form submit event
+addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
+
 //// Form handlers ////
 // profile form submission handler
 function handleProfileFormSubmit(evt) {
@@ -146,33 +174,6 @@ function handleAddCardFormSubmit(evt) {
 
   toggleModal(addCardModal);
 }
-
-///// Event Handlers ////
-// profile edit button click
-profileEditButton.addEventListener("click", () => {
-  openEditProfileModal();
-});
-
-// profile modal close button click
-editProfileCloseButton.addEventListener("click", () => {
-  toggleModal(editProfileModal);
-});
-
-// profile form submit event
-profileFormElement.addEventListener("submit", handleProfileFormSubmit);
-
-// add card button click
-addCardButton.addEventListener("click", () => {
-  toggleModal(addCardModal);
-});
-
-// add card modal close button click
-addCardCloseButton.addEventListener("click", () => {
-  toggleModal(addCardModal);
-});
-
-// add card form submit event
-addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 
 //// Render initial cards ////
 initialCards.forEach((card) => {
