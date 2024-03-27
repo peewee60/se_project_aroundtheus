@@ -15,6 +15,10 @@
   padding: 0;
 }
 
+.card__image:hover {
+  cursor: pointer;
+}
+
 .card__info {
   margin: 20px 20px 25px;
   display: flex;

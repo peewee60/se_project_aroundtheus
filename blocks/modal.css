@@ -28,6 +28,8 @@
 }
 
 .modal__container_type_image {
+  max-width: 75vw;
+  max-height: 75vh;
 }
 
 .modal__close-button {
@@ -50,12 +52,28 @@
   cursor: pointer;
 }
 
+.modal__title {
+  font-family: Inter, Arial, sans-serif;
+  line-height: 1.2;
+}
+
 .modal__title_type_form {
   margin: 0 0 54px;
-  font-family: Inter, Arial, sans-serif;
   font-size: 24px;
   font-weight: 900;
-  line-height: 1.2;
+}
+
+.modal__title_type_image {
+  /* margin: 0 0 54px; */
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.modal__image {
+  max-width: 75vw;
+  max-height: 75vh;
+  margin: 0;
+  padding: 0;
 }
 
 .modal__form {
