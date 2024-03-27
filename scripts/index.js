@@ -56,9 +56,15 @@ function getCardElement(data) {
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
   const cardLikeButton = cardElement.querySelector(".card__like-button");
+  const cardDeleteButton = cardElement.querySelector(".card__delete-button");
 
   cardLikeButton.addEventListener("click", () => {
     toggleLikeButton(cardLikeButton);
+  });
+
+  cardDeleteButton.addEventListener("click", () => {
+    const card = cardDeleteButton.parentElement;
+    deleteCard(card);
   });
 
   cardImage.src = data["link"];
@@ -86,6 +92,10 @@ function openEditProfileModal() {
 
 function toggleLikeButton(button) {
   button.classList.toggle("card__like-button_active");
+}
+
+function deleteCard(card) {
+  card.remove();
 }
 
 ///// Event Handlers ////
