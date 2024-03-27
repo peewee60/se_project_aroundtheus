@@ -53,8 +53,13 @@ const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
 //// Functions ////
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
-  let cardImage = cardElement.querySelector(".card__image");
-  let cardTitle = cardElement.querySelector(".card__title");
+  const cardImage = cardElement.querySelector(".card__image");
+  const cardTitle = cardElement.querySelector(".card__title");
+  const cardLikeButton = cardElement.querySelector(".card__like-button");
+
+  cardLikeButton.addEventListener("click", () => {
+    toggleLikeButton(cardLikeButton);
+  });
 
   cardImage.src = data["link"];
   cardImage.alt = data["name"];
@@ -81,12 +86,6 @@ function openEditProfileModal() {
 
 function toggleLikeButton(button) {
   button.classList.toggle("card__like-button_active");
-}
-
-function addLikeButtonListener(button) {
-  button.addEventListener("click", () => {
-    toggleLikeButton(button);
-  });
 }
 
 ///// Event Handlers ////
@@ -167,22 +166,10 @@ function handleAddCardFormSubmit(evt) {
   // Add new card to begining of card gallery
   cardGallery.prepend(getCardElement(newCardData));
 
-  // create event listener for new cards like button
-  const newCard = cardGallery.querySelector(".card");
-  const cardLikeButton = newCard.querySelector(".card__like-button");
-  addLikeButtonListener(cardLikeButton);
-
   toggleModal(addCardModal);
 }
 
 //// Render initial cards ////
 initialCards.forEach((card) => {
   cardGallery.append(getCardElement(card));
-});
-
-// Select all card like buttons after cards have been rendered
-const cardLikeButton = content.querySelectorAll(".card__like-button");
-// add click listener to each like button
-cardLikeButton.forEach((likeButton) => {
-  addLikeButtonListener(likeButton);
 });
