@@ -50,20 +50,6 @@ const addCardButton = content.querySelector(".profile__add-button");
 const addCardCloseButton = addCardModal.querySelector(".modal__close-button");
 const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
 
-//// Form data ////
-const profileNameInput = profileFormElement.querySelector(
-  ".modal__input_type_name"
-);
-const profileDescriptionInput = profileFormElement.querySelector(
-  ".modal__input_type_description"
-);
-const newCardTitleInput = addCardFormElement.querySelector(
-  ".modal__input_type_title"
-);
-const newCardUrlInput = addCardFormElement.querySelector(
-  ".modal__input_type_url"
-);
-
 //// Functions ////
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -123,6 +109,20 @@ addCardButton.addEventListener("click", () => {
 addCardCloseButton.addEventListener("click", () => {
   toggleModal(addCardModal);
 });
+
+//// Form data ////
+const profileNameInput = profileFormElement.querySelector(
+  ".modal__input_type_name"
+);
+const profileDescriptionInput = profileFormElement.querySelector(
+  ".modal__input_type_description"
+);
+const newCardTitleInput = addCardFormElement.querySelector(
+  ".modal__input_type_title"
+);
+const newCardUrlInput = addCardFormElement.querySelector(
+  ".modal__input_type_url"
+);
 
 //// Form submit listeners ////
 // profile form submit event
