@@ -187,6 +187,7 @@ function handleAddCardFormSubmit(evt) {
   cardGallery.prepend(getCardElement(newCardData));
 
   toggleModal(addCardModal);
+  addCardFormElement.reset();
 }
 
 //// Render initial cards ////
