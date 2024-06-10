@@ -84,19 +84,27 @@
           type="button"
           name="close modal"></button>
         <h2 class="modal__title modal__title_type_form">Edit Profile</h2>
-        <form class="modal__form" id="edit-profile-form">
+        <form class="modal__form" id="edit-profile-form" novalidate>
           <input
+            id="name-input"
             class="modal__input modal__input_type_name"
             type="text"
             name="name"
             placeholder="Name"
             required />
+          <span class="name-input-error modal__input-error"
+            >This field is required.</span
+          >
           <input
+            id="description-input"
             class="modal__input modal__input_type_description"
             type="text"
             name="description"
             placeholder="Description"
             required />
+          <span class="description-inout-error modal__input-error"
+            >This field is required.</span
+          >
           <button class="modal__submit-button" type="submit" name="submit">
             Save
           </button>
