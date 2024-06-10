@@ -96,6 +96,16 @@
   line-height: 1.2;
 }
 
+.modal__input-error {
+  border-bottom-color: #f00;
+  font-size: 12px;
+  opacity: 0;
+}
+
+.modal__input-error_active {
+  opacity: 1;
+}
+
 .modal__submit-button {
   border: none;
   border-radius: 2px;
