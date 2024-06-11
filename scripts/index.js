@@ -43,12 +43,9 @@ const imageModalTitle = imageModal.querySelector(".modal__title");
 const profileFormElement = editProfileModal.querySelector(".modal__form");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 
-//// Inputs and Errors ///
+//// Inputs ///
 const profileFormInputs = profileFormElement.querySelectorAll(".modal__input");
 const addCardFormInputs = addCardFormElement.querySelectorAll(".modal__input");
-const profileFormError = profileFormElement.querySelector(
-  `.${profileFormInputs.id}-error`
-);
 
 //// Buttons and Inputs ////
 const profileEditButton = content.querySelector(".profile__edit-button");
@@ -61,24 +58,42 @@ const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
 const modalCloseButtons = document.querySelectorAll(".modal__close-button");
 
 //// Functions ////
-const showInputError = (element) => {
-  element.classList.add("form__input_type_error");
-  profileFormError.classList.add("modal__input-error_active");
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add("form__input_type_error");
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add("modal__input-error_active");
 };
 
-const hideInputError = (element) => {
-  element.classList.remove("form__input_type_error");
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove("form__input_type_error");
   profileFormError.classList.remove("modal__input-error_active");
+  errorElement.textContent = "";
 };
 
-const checkInputValidity = () => {
-  if (!formInput.validity.valid) {
+const checkInputValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
     // If NOT (!), show the error element
-    showInputError(formInput);
+    showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
     // If it's valid, hide the error element
-    hideInputError(formInput);
+    hideInputError(formElement, inputElement);
   }
+};
+
+const setEventListeners = (formElement) => {
+  // Make an array of the input fields inside the form
+  const inputList = Array.from(formElement.querySelectorAll(".modal_input"));
+
+  // Iterate over the array
+  inputList.forEach((inputElement) => {
+    // add the input event handler to each field
+    inputElement.addEventListener("input", () => {
+      // Call checkInputValidity() inside the callback
+      checkInputValidity(formElement, inputElement);
+    });
+  });
 };
 
 function getCardElement(data) {
