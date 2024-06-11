@@ -61,6 +61,26 @@ const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
 const modalCloseButtons = document.querySelectorAll(".modal__close-button");
 
 //// Functions ////
+const showInputError = (element) => {
+  element.classList.add("form__input_type_error");
+  profileFormError.classList.add("modal__input-error_active");
+};
+
+const hideInputError = (element) => {
+  element.classList.remove("form__input_type_error");
+  profileFormError.classList.remove("modal__input-error_active");
+};
+
+const checkInputValidity = () => {
+  if (!formInput.validity.valid) {
+    // If NOT (!), show the error element
+    showInputError(formInput);
+  } else {
+    // If it's valid, hide the error element
+    hideInputError(formInput);
+  }
+};
+
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -204,3 +224,6 @@ function handleAddCardFormSubmit(evt) {
 initialCards.forEach((card) => {
   cardGallery.append(getCardElement(card));
 });
+
+//// Form Validation ///
+// profileFormInputs.addEventListener("input", checkInputValidity);
