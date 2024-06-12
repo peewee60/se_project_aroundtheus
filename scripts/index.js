@@ -68,7 +68,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove("form__input_type_error");
-  profileFormError.classList.remove("modal__input-error_active");
+  formElement.classList.remove("modal__input-error_active");
   errorElement.textContent = "";
 };
 
@@ -84,7 +84,7 @@ const checkInputValidity = (formElement, inputElement) => {
 
 const setEventListeners = (formElement) => {
   // Make an array of the input fields inside the form
-  const inputList = Array.from(formElement.querySelectorAll(".modal_input"));
+  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
 
   // Iterate over the array
   inputList.forEach((inputElement) => {
