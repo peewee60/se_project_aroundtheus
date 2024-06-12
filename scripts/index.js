@@ -96,6 +96,22 @@ const setEventListeners = (formElement) => {
   });
 };
 
+const enableValidation = () => {
+  // find all forms and make an array
+  const formList = Array.from(document.querySelectorAll(".modal__form"));
+
+  // Iterate over array
+  formList.forEach((formElement) => {
+    formElement.addEventListener("submit", (evt) => {
+      // cancel default behavior for each form
+      evt.preventDefault();
+    });
+
+    // call setInputEventListeners() on each form
+    setInputEventListeners(formElement);
+  });
+};
+
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
@@ -240,5 +256,5 @@ initialCards.forEach((card) => {
   cardGallery.append(getCardElement(card));
 });
 
-//// Form Validation ///
-// profileFormInputs.addEventListener("input", checkInputValidity);
+////  Enable Form Validation ///
+enableValidation();
