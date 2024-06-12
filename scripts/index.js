@@ -82,7 +82,7 @@ const checkInputValidity = (formElement, inputElement) => {
   }
 };
 
-const setEventListeners = (formElement) => {
+const setInputEventListeners = (formElement) => {
   // Make an array of the input fields inside the form
   const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
 
