@@ -34,6 +34,7 @@ const profileDescription = content.querySelector(".profile__description");
 const cardTemplate = content.querySelector("#card-template").content;
 const cardGallery = content.querySelector(".gallery__cards");
 const editProfileModal = document.querySelector("#edit-profile-modal");
+const modals = document.querySelectorAll(".modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const imageModal = document.querySelector("#image-modal");
 const imageModalPicture = imageModal.querySelector(".modal__image");
@@ -48,14 +49,13 @@ const profileFormInputs = profileFormElement.querySelectorAll(".modal__input");
 const addCardFormInputs = addCardFormElement.querySelectorAll(".modal__input");
 
 //// Buttons and Inputs ////
+const modalCloseButtons = document.querySelectorAll(".modal__close-button");
 const profileEditButton = content.querySelector(".profile__edit-button");
 const editProfileSubmitButton = editProfileModal.querySelector(
   ".modal__submit-button"
 );
-
 const addCardButton = content.querySelector(".profile__add-button");
 const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
-const modalCloseButtons = document.querySelectorAll(".modal__close-button");
 
 //// Functions ////
 const showInputError = (formElement, inputElement, errorMessage) => {
@@ -151,7 +151,7 @@ const enableValidation = () => {
   });
 };
 
-function getCardElement(data) {
+const getCardElement = (data) => {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
@@ -176,15 +176,56 @@ function getCardElement(data) {
   });
 
   return cardElement;
-}
+};
 
-function openModal(modal) {
+const openModal = (modal) => {
   modal.classList.add("modal_opened");
-}
 
-function closeModal(modal) {
+  // Add event listener to close modal on press of "ESC" key
+  const handleEscapeKey = (evt) => {
+    if (evt.key === "Escape") {
+      console.log(evt.key);
+      closeModal(modal);
+    }
+  };
+  modal.handleEscapeKey = handleEscapeKey;
+  document.addEventListener("keydown", handleEscapeKey);
+
+  // TODO: Add event listener to close modal the overlay is clicked
+  const handleClick = (evt) => {
+    console.log("Target:");
+    console.log(evt.target);
+    console.log("Modal:");
+    console.log(modal);
+    if (evt.target === modal) {
+      closeModal(modal);
+    }
+  };
+  modal.handleClick = handleClick;
+  window.addEventListener("click", handleClick);
+};
+
+const closeModal = (modal) => {
   modal.classList.remove("modal_opened");
-}
+  // Remove event listener to close modal on press of "ESC" key
+  if (modal.handleEscapeKey) {
+    document.removeEventListener("keydown", modal.handleEscapeKey);
+    delete modal.handleEscapeKey;
+  }
+
+  // TODO: Remove event listener to close modal the overlay is clicked
+};
+
+// const toggleModal = (modal) => {
+//   console.log(modal.classList);
+//   if (modal.classList.contains("model_opened")) {
+//     closeModal(modal);
+//     //document.removeEventListener("keydown", closeOnEscape);
+//   } else {
+//     openModal(modal);
+//     //document.addEventListener("keydown", closeOnEscape);
+//   }
+// };
 
 function fillProfileForm() {
   profileNameInput.value = content.querySelector(".profile__name").innerText;
@@ -196,6 +237,7 @@ function fillProfileForm() {
 function openEditProfileModal() {
   fillProfileForm();
   openModal(editProfileModal);
+  setEscapeListener(editProfileModal);
 }
 
 function openImageModal(data) {
