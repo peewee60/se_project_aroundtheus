@@ -92,19 +92,24 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (inputList, buttonElement) => {
-  console.log(inputList);
-  console.log(buttonElement);
+const disableButton = (button) => {
+  button.classList.add("modal__submit-inactive");
+  button.disabled = true;
+};
 
+const enableButton = (button) => {
+  button.classList.remove("modal__submit-inactive");
+  button.disabled = false;
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
   // If at least one input is invalid
   if (hasInvalidInput(inputList)) {
     // make the button inactive
-    buttonElement.classList.add("modal__submit-inactive");
-    buttonElement.disabled = true;
+    disableButton(buttonElement);
   } else {
     // otherwise, make it active
-    buttonElement.classList.remove("modal__submit-inactive");
-    buttonElement.disabled = false;
+    enableButton(buttonElement);
   }
 };
 
@@ -214,7 +219,7 @@ function deleteCard(card) {
 modalCloseButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const modal = button.parentElement.parentElement;
-    toggleModal(modal);
+    closeModal(modal);
   });
 });
 
@@ -287,7 +292,7 @@ function handleAddCardFormSubmit(evt) {
 
   closeModal(addCardModal);
   addCardFormElement.reset();
-  // TODO: Disable form submit
+  disableButton(evt.submitter);
 }
 
 //// Render initial cards ////
