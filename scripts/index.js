@@ -208,6 +208,11 @@ function handleProfileFormSubmit(evt) {
   closeModal(editProfileModal);
 }
 
+const disableButton = (button, inactiveButtonClass) => {
+  button.classList.add(inactiveButtonClass);
+  button.disabled = true;
+};
+
 // Add card form submission handler
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
@@ -228,7 +233,7 @@ function handleAddCardFormSubmit(evt) {
 
   closeModal(addCardModal);
   addCardFormElement.reset();
-  disableButton(evt.submitter);
+  disableButton(evt.submitter, "modal__submit-inactive");
 }
 
 //// Render initial cards ////
