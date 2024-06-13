@@ -82,9 +82,40 @@ const checkInputValidity = (formElement, inputElement) => {
   }
 };
 
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    // If the field is invalid, the callback will return true.
+    // The method will then stop, and hasInvalidInput() function will return true
+    // hasInvalidInput returns true
+
+    return !inputElement.validity.valid;
+  });
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  console.log(inputList);
+  console.log(buttonElement);
+
+  // If at least one input is invalid
+  if (hasInvalidInput(inputList)) {
+    // make the button inactive
+    buttonElement.classList.add("modal__submit-inactive");
+    buttonElement.disabled = true;
+  } else {
+    // otherwise, make it active
+    buttonElement.classList.remove("modal__submit-inactive");
+    buttonElement.disabled = false;
+  }
+};
+
 const setInputEventListeners = (formElement) => {
   // Make an array of the input fields inside the form
   const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
+  // Find form submit button
+  const buttonElement = formElement.querySelector(".modal__submit");
+
+  // Disable submit button on page load if fields are empty
+  toggleButtonState(inputList, buttonElement);
 
   // Iterate over the array
   inputList.forEach((inputElement) => {
@@ -92,6 +123,9 @@ const setInputEventListeners = (formElement) => {
     inputElement.addEventListener("input", () => {
       // Call checkInputValidity() inside the callback
       checkInputValidity(formElement, inputElement);
+
+      // Call toggleButtonState() passing and array of inputs and a button
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };
@@ -253,6 +287,7 @@ function handleAddCardFormSubmit(evt) {
 
   closeModal(addCardModal);
   addCardFormElement.reset();
+  // TODO: Disable form submit
 }
 
 //// Render initial cards ////
