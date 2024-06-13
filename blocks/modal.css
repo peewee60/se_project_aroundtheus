@@ -106,7 +106,7 @@
   opacity: 1;
 }
 
-.modal__submit-button {
+.modal__submit {
   border: none;
   border-radius: 2px;
   cursor: pointer;
@@ -121,9 +121,19 @@
   transition: opacity 0.3s ease;
 }
 
-.modal__submit-button:hover {
+.modal__submit:hover {
   opacity: 0.6;
   cursor: pointer;
+}
+
+.modal__submit-inactive {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.modal__submit-inactive:hover {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 
 @media screen and (max-width: 630px) {
@@ -154,7 +164,7 @@
     font-size: 14px;
   }
 
-  .modal__submit-button {
+  .modal__submit {
     margin-top: 15px;
     padding: 14px 0;
     font-family: Inter, Arial, sans-serif;
