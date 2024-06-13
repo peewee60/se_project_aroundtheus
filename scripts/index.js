@@ -139,8 +139,12 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function toggleModal(modal) {
-  modal.classList.toggle("modal_opened");
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
 }
 
 function fillProfileForm() {
@@ -152,7 +156,7 @@ function fillProfileForm() {
 
 function openEditProfileModal() {
   fillProfileForm();
-  toggleModal(editProfileModal);
+  openModal(editProfileModal);
 }
 
 function openImageModal(data) {
@@ -160,7 +164,7 @@ function openImageModal(data) {
   imageModalPicture.alt = data["name"];
   imageModalTitle.textContent = data["name"];
 
-  toggleModal(imageModal);
+  openModal(imageModal);
 }
 
 function toggleLikeButton(button) {
@@ -187,7 +191,7 @@ profileEditButton.addEventListener("click", () => {
 
 // add card button click
 addCardButton.addEventListener("click", () => {
-  toggleModal(addCardModal);
+  openModal(addCardModal);
 });
 
 //// Form data ////
@@ -226,7 +230,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameInputValue;
   profileDescription.textContent = descriptionInputValue;
 
-  toggleModal(editProfileModal);
+  closeModal(editProfileModal);
 }
 
 // Add card form submission handler
@@ -247,7 +251,7 @@ function handleAddCardFormSubmit(evt) {
   // Add new card to begining of card gallery
   cardGallery.prepend(getCardElement(newCardData));
 
-  toggleModal(addCardModal);
+  closeModal(addCardModal);
   addCardFormElement.reset();
 }
 
