@@ -85,26 +85,34 @@
           name="close modal"></button>
         <h2 class="modal__title modal__title_type_form">Edit Profile</h2>
         <form class="modal__form" id="edit-profile-form" novalidate>
-          <input
-            id="name-input"
-            class="modal__input modal__input_type_name"
-            type="text"
-            name="name"
-            placeholder="Name"
-            minlength="2"
-            maxlength="40"
-            required />
-          <span class="name-input-error modal__input-error"> </span>
-          <input
-            id="description-input"
-            class="modal__input modal__input_type_description"
-            type="text"
-            name="description"
-            placeholder="Description"
-            minlength="2"
-            maxlength="200"
-            required />
-          <span class="description-input-error modal__input-error"> </span>
+          <div class="modal__input-wrapper">
+            <input
+              id="name-input"
+              class="modal__input modal__input_type_name"
+              type="text"
+              name="name"
+              placeholder="Name"
+              minlength="2"
+              maxlength="40"
+              required />
+            <span class="name-input-error modal__input-error">
+              This field is required.
+            </span>
+          </div>
+          <div class="modal__input-wrapper">
+            <input
+              id="description-input"
+              class="modal__input modal__input_type_description"
+              type="text"
+              name="description"
+              placeholder="Description"
+              minlength="2"
+              maxlength="200"
+              required />
+            <span class="description-input-error modal__input-error">
+              This field is required.
+            </span>
+          </div>
           <button class="modal__submit" type="submit" name="submit">
             Save
           </button>
@@ -120,24 +128,32 @@
           name="close modal"></button>
         <h2 class="modal__title modal__title_type_form">New Place</h2>
         <form class="modal__form" id="add-card-form" novalidate>
-          <input
-            id="title-input"
-            class="modal__input modal__input_type_title"
-            type="text"
-            name="title"
-            placeholder="Title"
-            minlength="1"
-            maxlength="30"
-            required />
-          <span class="title-input-error modal__input-error"> </span>
-          <input
-            id="url-input"
-            class="modal__input modal__input_type_url"
-            type="url"
-            name="image url"
-            placeholder="Image URL"
-            required />
-          <span class="url-input-error modal__input-error"> </span>
+          <div class="modal__input-wrapper">
+            <input
+              id="title-input"
+              class="modal__input modal__input_type_title"
+              type="text"
+              name="title"
+              placeholder="Title"
+              minlength="1"
+              maxlength="30"
+              required />
+            <span class="title-input-error modal__input-error">
+              This field is required.
+            </span>
+          </div>
+          <div class="modal__input-wrapper">
+            <input
+              id="url-input"
+              class="modal__input modal__input_type_url"
+              type="url"
+              name="image url"
+              placeholder="Image URL"
+              required />
+            <span class="url-input-error modal__input-error">
+              This field is required.
+            </span>
+          </div>
           <button class="modal__submit" type="submit" name="submit">
             Save
           </button>
