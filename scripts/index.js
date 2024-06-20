@@ -85,26 +85,33 @@ const getCardElement = (data) => {
   return cardElement;
 };
 
+const handleEscapeKey = (evt) => {
+  if (evt.key === "Escape") {
+    // find active modal
+    const activeModal = document.querySelector(".modal_opened");
+    closeModal(activeModal);
+  }
+};
+
+const handleOutsideClick = (evt) => {
+  // find active modal
+  const activeModal = document.querySelector(".modal_opened");
+
+  if (evt.target === activeModal) {
+    closeModal(activeModal);
+  }
+};
+
 const openModal = (modal) => {
   modal.classList.add("modal_opened");
 
   // Add event listener to close modal on press of "ESC" key
-  const handleEscapeKey = (evt) => {
-    if (evt.key === "Escape") {
-      closeModal(modal);
-    }
-  };
   modal.handleEscapeKey = handleEscapeKey;
   document.addEventListener("keydown", handleEscapeKey);
 
   // Add event listener to close modal the overlay is clicked
-  const handleClick = (evt) => {
-    if (evt.target === modal) {
-      closeModal(modal);
-    }
-  };
-  modal.handleClick = handleClick;
-  window.addEventListener("click", handleClick);
+  modal.handleOutsideClick = handleOutsideClick;
+  window.addEventListener("click", handleOutsideClick);
 };
 
 const closeModal = (modal) => {
@@ -115,10 +122,10 @@ const closeModal = (modal) => {
     delete modal.handleEscapeKey;
   }
 
-  // Remove event listener to close modal the overlay is clicked
-  if (modal.handleClick) {
-    window.removeEventListener("click", modal.handleClick);
-    delete modal.handleClick;
+  // Remove event listener to close modal when the overlay is clicked
+  if (modal.handleOutsideClick) {
+    window.removeEventListener("click", modal.handleOutsideClick);
+    delete modal.handleOutsideClick;
   }
 };
 
