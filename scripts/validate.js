@@ -65,19 +65,19 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const enableButton = (button) => {
+const enableButton = (button, inactiveButtonClass) => {
   button.classList.remove(inactiveButtonClass);
   button.disabled = false;
 };
 
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
   // If at least one input is invalid
-  if (hasInvalidInput(inputList)) {
+  if (hasInvalidInput(inputList, inactiveButtonClass)) {
     // make the button inactive
     disableButton(buttonElement, inactiveButtonClass);
   } else {
     // otherwise, make it active
-    enableButton(buttonElement);
+    enableButton(buttonElement, inactiveButtonClass);
   }
 };
 
