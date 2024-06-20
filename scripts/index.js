@@ -106,27 +106,19 @@ const openModal = (modal) => {
   modal.classList.add("modal_opened");
 
   // Add event listener to close modal on press of "ESC" key
-  modal.handleEscapeKey = handleEscapeKey;
   document.addEventListener("keydown", handleEscapeKey);
 
   // Add event listener to close modal the overlay is clicked
-  modal.handleOutsideClick = handleOutsideClick;
   window.addEventListener("click", handleOutsideClick);
 };
 
 const closeModal = (modal) => {
   modal.classList.remove("modal_opened");
   // Remove event listener to close modal on press of "ESC" key
-  if (modal.handleEscapeKey) {
-    document.removeEventListener("keydown", modal.handleEscapeKey);
-    delete modal.handleEscapeKey;
-  }
+  document.removeEventListener("keydown", handleEscapeKey);
 
   // Remove event listener to close modal when the overlay is clicked
-  if (modal.handleOutsideClick) {
-    window.removeEventListener("click", modal.handleOutsideClick);
-    delete modal.handleOutsideClick;
-  }
+  window.removeEventListener("click", handleOutsideClick);
 };
 
 function fillProfileForm() {
