@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
 //// initial data ////
 const initialCards = [
@@ -200,4 +201,27 @@ function handleAddCardFormSubmit(evt) {
 initialCards.forEach((card) => {
   const newCard = new Card(card, cardTemplate, openImageModal);
   cardGallery.append(newCard.getView());
+});
+
+////  Enable Form Validation ///
+// Configuration Object
+const configObj = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit",
+  inactiveButtonClass: "modal__submit-inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+};
+
+// find all forms and make an array
+const formList = Array.from(document.querySelectorAll(".modal__form"));
+
+// Iterate over array
+formList.forEach((formElement) => {
+  const form = new FormValidator(configObj, formElement);
+  form.enableValidation();
+  // formElement.addEventListener("submit", (evt) => {
+  //   // cancel default behavior for each form
+  //   evt.preventDefault();
 });
