@@ -7,8 +7,12 @@ export default class Card {
     this._handleImageClick = handleImageClick;
   }
 
-  _handleLikeButton(button) {
-    button.classList.toggle("card__like-button_active");
+  _handleLikeButton() {
+    console.log(this._cardElement);
+
+    this._cardElement
+      .querySelector(".card__like-button")
+      .classList.toggle("card__like-button_active");
   }
 
   _handleDeleteCard(evt) {
@@ -20,7 +24,7 @@ export default class Card {
     this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this._handleLikeButton(cardLikeButton);
+        this._handleLikeButton();
       });
 
     // delete button listener
@@ -40,7 +44,8 @@ export default class Card {
     // copy card template
     this._cardElement = document
       .querySelector(this._cardSelector)
-      .content.cloneNode(true);
+      .content.querySelector(".card")
+      .cloneNode(true);
 
     // get image element and set attributes
     this._cardImageElement = this._cardElement.querySelector(".card__image");
