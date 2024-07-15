@@ -41,14 +41,28 @@ const imageModal = document.querySelector("#image-modal");
 const imageModalPicture = imageModal.querySelector(".modal__image");
 const imageModalTitle = imageModal.querySelector(".modal__title");
 
-//// Forms ////
-const profileFormElement = editProfileModal.querySelector(".modal__form");
-const addCardFormElement = addCardModal.querySelector(".modal__form");
-
 //// Buttons and Inputs ////
 const modalCloseButtons = document.querySelectorAll(".modal__close-button");
 const profileEditButton = content.querySelector(".profile__edit-button");
 const addCardButton = content.querySelector(".profile__add-button");
+
+//// Forms ////
+const profileFormElement = editProfileModal.querySelector(".modal__form");
+const addCardFormElement = addCardModal.querySelector(".modal__form");
+
+//// Form Input Fields ////
+const profileNameInput = profileFormElement.querySelector(
+  ".modal__input_type_name"
+);
+const profileDescriptionInput = profileFormElement.querySelector(
+  ".modal__input_type_description"
+);
+const newCardTitleInput = addCardFormElement.querySelector(
+  ".modal__input_type_title"
+);
+const newCardUrlInput = addCardFormElement.querySelector(
+  ".modal__input_type_url"
+);
 
 //// Functions ////
 const handleEscapeKey = (evt) => {
@@ -107,6 +121,11 @@ function openImageModal(data) {
   openModal(imageModal);
 }
 
+function createCard(data) {
+  const cardElement = new Card(data, cardTemplate, openImageModal);
+  return cardElement.getView();
+}
+
 ///// Event Handlers ////
 // modal close buttons
 modalCloseButtons.forEach((button) => {
@@ -125,20 +144,6 @@ profileEditButton.addEventListener("click", () => {
 addCardButton.addEventListener("click", () => {
   openModal(addCardModal);
 });
-
-//// Form data ////
-const profileNameInput = profileFormElement.querySelector(
-  ".modal__input_type_name"
-);
-const profileDescriptionInput = profileFormElement.querySelector(
-  ".modal__input_type_description"
-);
-const newCardTitleInput = addCardFormElement.querySelector(
-  ".modal__input_type_title"
-);
-const newCardUrlInput = addCardFormElement.querySelector(
-  ".modal__input_type_url"
-);
 
 //// Form handlers ////
 // profile form submission handler
@@ -173,12 +178,11 @@ function handleAddCardFormSubmit(evt) {
   const urlInputValue = newCardUrlInput.value;
 
   // create new card
-  const newCard = new Card(
+  const newCard = createCard(
     {
       name: titleInputValue,
       link: urlInputValue,
     },
-    cardTemplate,
     openImageModal
   );
 
@@ -197,9 +201,8 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 
 //// Render initial cards ////
-initialCards.forEach((card) => {
-  const newCard = new Card(card, cardTemplate, openImageModal);
-  cardGallery.append(newCard.getView());
+initialCards.forEach((item) => {
+  cardGallery.append(createCard(item));
 });
 
 ////  Enable Form Validation ///
