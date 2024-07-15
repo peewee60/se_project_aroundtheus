@@ -30,13 +30,11 @@ const initialCards = [
 const cardTemplate = "#card-template";
 
 //// DOM Elements ////
-const page = document.querySelector(".page");
 const content = document.querySelector(".page__content");
 const profileName = content.querySelector(".profile__name");
 const profileDescription = content.querySelector(".profile__description");
 const cardGallery = content.querySelector(".gallery__cards");
 const editProfileModal = document.querySelector("#edit-profile-modal");
-const modals = document.querySelectorAll(".modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const imageModal = document.querySelector("#image-modal");
 const imageModalPicture = imageModal.querySelector(".modal__image");
@@ -46,18 +44,10 @@ const imageModalTitle = imageModal.querySelector(".modal__title");
 const profileFormElement = editProfileModal.querySelector(".modal__form");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 
-//// Inputs ///
-const profileFormInputs = profileFormElement.querySelectorAll(".modal__input");
-const addCardFormInputs = addCardFormElement.querySelectorAll(".modal__input");
-
 //// Buttons and Inputs ////
 const modalCloseButtons = document.querySelectorAll(".modal__close-button");
 const profileEditButton = content.querySelector(".profile__edit-button");
-const editProfileSubmitButton = editProfileModal.querySelector(
-  ".modal__submit-button"
-);
 const addCardButton = content.querySelector(".profile__add-button");
-const addCardSubmitButton = addCardModal.querySelector(".modal__submit-button");
 
 //// Functions ////
 const handleEscapeKey = (evt) => {
