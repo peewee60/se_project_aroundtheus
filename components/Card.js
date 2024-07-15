@@ -5,34 +5,29 @@ export default class Card {
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._likeButtonSelector = ".card__like-button";
+    this._likeButtonActive = "card__like-button_active";
+    this._deleteButtonSelector = ".card__delete-button";
   }
 
   _handleLikeButton() {
-    console.log(this._cardElement);
-
-    this._cardElement
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
+    this._likeButton.classList.toggle(this._likeButtonActive);
   }
 
-  _handleDeleteCard(evt) {
-    evt.target.closest(".card").remove();
+  _handleDeleteCard() {
+    this._cardElement.remove();
   }
 
   _setEventListeners() {
     // like button listener
-    this._cardElement
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleLikeButton();
-      });
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeButton();
+    });
 
     // delete button listener
-    this._cardElement
-      .querySelector(".card__delete-button")
-      .addEventListener("click", (evt) => {
-        this._handleDeleteCard(evt);
-      });
+    this._deleteButton.addEventListener("click", (evt) => {
+      this._handleDeleteCard();
+    });
 
     // set event listener for image click
     this._cardImageElement.addEventListener("click", () => {
@@ -40,12 +35,24 @@ export default class Card {
     });
   }
 
-  getView = () => {
-    // copy card template
+  _getTemplate() {
+    // clone card template
     this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
+  }
+
+  getView() {
+    this._getTemplate();
+
+    // buttons
+    this._likeButton = this._cardElement.querySelector(
+      this._likeButtonSelector
+    );
+    this._deleteButton = this._cardElement.querySelector(
+      this._deleteButtonSelector
+    );
 
     // get image element and set attributes
     this._cardImageElement = this._cardElement.querySelector(".card__image");
@@ -57,9 +64,9 @@ export default class Card {
     this._cardTitleElement.textContent = this._name;
 
     // set event listeners
-    this._setEventListeners(this._cardElement);
+    this._setEventListeners();
 
     // return the card
     return this._cardElement;
-  };
+  }
 }
