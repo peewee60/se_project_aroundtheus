@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
 //// initial data ////
 const initialCards = [
@@ -139,13 +140,6 @@ const newCardUrlInput = addCardFormElement.querySelector(
   ".modal__input_type_url"
 );
 
-//// Form submit listeners ////
-// profile form submit event
-profileFormElement.addEventListener("submit", handleProfileFormSubmit);
-
-// add card form submit event
-addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
-
 //// Form handlers ////
 // profile form submission handler
 function handleProfileFormSubmit(evt) {
@@ -164,10 +158,10 @@ function handleProfileFormSubmit(evt) {
   closeModal(editProfileModal);
 }
 
-const disableButton = (button, inactiveButtonClass) => {
-  button.classList.add(inactiveButtonClass);
-  button.disabled = true;
-};
+// const disableButton = (button, inactiveButtonClass) => {
+//   button.classList.add(inactiveButtonClass);
+//   button.disabled = true;
+// };
 
 // Add card form submission handler
 function handleAddCardFormSubmit(evt) {
@@ -193,11 +187,40 @@ function handleAddCardFormSubmit(evt) {
 
   closeModal(addCardModal);
   addCardFormElement.reset();
-  disableButton(evt.submitter, "modal__submit-inactive");
 }
+
+//// Form submit listeners ////
+// profile form submit event
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+// add card form submit event
+addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 
 //// Render initial cards ////
 initialCards.forEach((card) => {
   const newCard = new Card(card, cardTemplate, openImageModal);
   cardGallery.append(newCard.getView());
+});
+
+////  Enable Form Validation ///
+// Configuration Object
+const configObj = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit",
+  inactiveButtonClass: "modal__submit-inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+};
+
+// find all forms and make an array
+const formList = Array.from(document.querySelectorAll(".modal__form"));
+
+// Iterate over array
+formList.forEach((formElement) => {
+  const form = new FormValidator(configObj, formElement);
+  form.enableValidation();
+  // formElement.addEventListener("submit", (evt) => {
+  //   // cancel default behavior for each form
+  //   evt.preventDefault();
 });
