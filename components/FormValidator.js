@@ -52,8 +52,15 @@ export default class FormValidator {
 
   _showInputError(evt) {
     this._errorElement = this._formElement.querySelector(
-      `.${evt.target.id}-error`
+      `.${evt.target.id}-error``.${evt.target.id}-error`
     );
+
+    // console.log(evt.target.id);
+
+    // this._errorElement = this._formElement.querySelector(`.title-input-error`);
+
+    // console.log(this._errorElement);
+
     this._inputElement.classList.add(this._inputErrorClass);
     this._errorElement.textContent = this._inputElement.validationMessage;
     this._errorElement.classList.add(this._errorClass);
