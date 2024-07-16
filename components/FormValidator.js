@@ -50,42 +50,42 @@ export default class FormValidator {
     }
   }
 
-  _showInputError(evt) {
+  _showInputError() {
+    console.log(this._currentInputElement);
+
     this._errorElement = this._formElement.querySelector(
-      `.${evt.target.id}-error``.${evt.target.id}-error`
+      `.${this._currentInputElement.id}-error`
     );
-
-    // console.log(evt.target.id);
-
-    // this._errorElement = this._formElement.querySelector(`.title-input-error`);
-
-    // console.log(this._errorElement);
-
-    this._inputElement.classList.add(this._inputErrorClass);
+    this._currentInputElement.classList.add(this._inputErrorClass);
     this._errorElement.textContent = this._inputElement.validationMessage;
     this._errorElement.classList.add(this._errorClass);
   }
 
   _hideInputError() {
+    console.log(this._currentInputElement);
+
     this._errorElement = this._formElement.querySelector(
-      `.${evt.target.id}-error`
+      `.${this._currentInputElement.id}-error`
     );
-    this._inputElement.classList.remove(this._inputErrorClass);
+    this._currentInputElement.classList.remove(this._inputErrorClass);
     this._formElement.classList.remove(this._errorClass);
     this._errorElement.textContent = "";
   }
 
   _checkInputValidity(evt) {
-    // console.log("Checking input validity");
+    this._currentInputElement = evt.target;
+    console.log("Checking input validity");
 
-    if (!this._inputElement.validity.valid) {
+    // if (!this._inputElement.validity.valid)
+    console.log(evt);
+    if (!this._currentInputElement.validity.valid) {
       // If NOT (!), show the error element
-      // console.log(`Showing error on ${this._inputElement.id}`);
-      this._showInputError(evt);
+      console.log(`Showing error on ${this._inputElement.id}`);
+      this._showInputError();
     } else {
       // If it's valid, hide the error element
-      // console.log(`Hiding error on ${this._inputElement.id}`);
-      this._hideInputError(evt);
+      console.log(`Hiding error on ${this._inputElement.id}`);
+      this._hideInputError();
     }
   }
 
