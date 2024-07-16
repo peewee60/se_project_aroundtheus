@@ -47,22 +47,16 @@ const profileEditButton = content.querySelector(".profile__edit-button");
 const addCardButton = content.querySelector(".profile__add-button");
 
 //// Forms ////
-const profileFormElement = editProfileModal.querySelector(".modal__form");
-const addCardFormElement = addCardModal.querySelector(".modal__form");
+const profileForm = document.forms["edit-profile-form"];
+const addCardForm = document.forms["add-card-form"];
 
 //// Form Input Fields ////
-const profileNameInput = profileFormElement.querySelector(
-  ".modal__input_type_name"
-);
-const profileDescriptionInput = profileFormElement.querySelector(
+const profileNameInput = profileForm.querySelector(".modal__input_type_name");
+const profileDescriptionInput = profileForm.querySelector(
   ".modal__input_type_description"
 );
-const newCardTitleInput = addCardFormElement.querySelector(
-  ".modal__input_type_title"
-);
-const newCardUrlInput = addCardFormElement.querySelector(
-  ".modal__input_type_url"
-);
+const newCardTitleInput = addCardForm.querySelector(".modal__input_type_title");
+const newCardUrlInput = addCardForm.querySelector(".modal__input_type_url");
 
 //// Functions ////
 const handleEscapeKey = (evt) => {
@@ -74,11 +68,8 @@ const handleEscapeKey = (evt) => {
 };
 
 const handleOutsideClick = (evt) => {
-  // find active modal
-  const activeModal = document.querySelector(".modal_opened");
-
-  if (evt.target === activeModal) {
-    closeModal(activeModal);
+  if (evt.target.classList.contains("modal_opened")) {
+    closeModal(evt.target);
   }
 };
 
@@ -102,15 +93,18 @@ const closeModal = (modal) => {
 };
 
 function fillProfileForm() {
-  profileNameInput.value = content.querySelector(".profile__name").innerText;
-  profileDescriptionInput.value = content.querySelector(
-    ".profile__description"
-  ).innerText;
+  profileNameInput.value = profileName.innerText;
+  profileDescriptionInput.value = profileDescription.innerText;
 }
 
 function openEditProfileModal() {
   fillProfileForm();
   openModal(editProfileModal);
+}
+
+function openAddCardModal() {
+  formValidators[addCardForm.getAttribute("id")].resetValidation;
+  openModal(addCardModal);
 }
 
 function openImageModal(data) {
@@ -142,7 +136,7 @@ profileEditButton.addEventListener("click", () => {
 
 // add card button click
 addCardButton.addEventListener("click", () => {
-  openModal(addCardModal);
+  openAddCardModal();
 });
 
 //// Form handlers ////
@@ -187,18 +181,19 @@ function handleAddCardFormSubmit(evt) {
   );
 
   // Add new card to begining of card gallery
-  cardGallery.prepend(newCard.getView());
+  cardGallery.prepend(newCard);
 
   closeModal(addCardModal);
-  addCardFormElement.reset();
+  addCardForm.reset();
+  formValidators[addCardForm.getAttribute("id")].resetValidation();
 }
 
 //// Form submit listeners ////
 // profile form submit event
-profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+profileForm.addEventListener("submit", handleProfileFormSubmit);
 
 // add card form submit event
-addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
+addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 //// Render initial cards ////
 initialCards.forEach((item) => {
@@ -207,7 +202,7 @@ initialCards.forEach((item) => {
 
 ////  Enable Form Validation ///
 // Configuration Object
-const configObj = {
+const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit",
@@ -216,14 +211,29 @@ const configObj = {
   errorClass: "modal__input-error_active",
 };
 
-// find all forms and make an array
-const formList = Array.from(document.querySelectorAll(".modal__form"));
+// object to store validators
+const formValidators = {};
 
-// Iterate over array
-formList.forEach((formElement) => {
-  const form = new FormValidator(configObj, formElement);
-  form.enableValidation();
-  // formElement.addEventListener("submit", (evt) => {
-  //   // cancel default behavior for each form
-  //   evt.preventDefault();
-});
+const enableValidation = (config) => {
+  // find all forms and make an array
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+
+  // Iterate over array of forms
+  formList.forEach((formElement) => {
+    // create validator
+    const validator = new FormValidator(config, formElement);
+    // get the id of current form element
+    const formName = formElement.getAttribute("id");
+
+    // store validator using the `id` of the form
+    formValidators[formName] = validator;
+    // Enable validator
+    validator.enableValidation();
+
+    // formElement.addEventListener("submit", (evt) => {
+    //   // cancel default behavior for each form
+    //   evt.preventDefault();
+  });
+};
+
+enableValidation(config);
