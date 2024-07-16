@@ -73,18 +73,18 @@ export default class FormValidator {
   }
 
   _checkInputValidity(evt) {
-    this._currentInputElement = evt.target;
-    console.log("Checking input validity");
+    // console.log("Checking input validity");
+    // console.log(evt);
 
-    // if (!this._inputElement.validity.valid)
-    console.log(evt);
+    this._currentInputElement = evt.target;
+
     if (!this._currentInputElement.validity.valid) {
       // If NOT (!), show the error element
-      console.log(`Showing error on ${this._inputElement.id}`);
+      // console.log(`Showing error on ${this._currentInputElement.id}`);
       this._showInputError();
     } else {
       // If it's valid, hide the error element
-      console.log(`Hiding error on ${this._inputElement.id}`);
+      // console.log(`Hiding error on ${this._currentInputElement.id}`);
       this._hideInputError();
     }
   }
