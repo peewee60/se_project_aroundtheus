@@ -51,7 +51,7 @@ export default class FormValidator {
   }
 
   _showInputError() {
-    console.log(this._currentInputElement);
+    // console.log(this._currentInputElement);
 
     this._errorElement = this._formElement.querySelector(
       `.${this._currentInputElement.id}-error`
@@ -62,7 +62,7 @@ export default class FormValidator {
   }
 
   _hideInputError() {
-    console.log(this._currentInputElement);
+    // console.log(this._currentInputElement);
 
     this._errorElement = this._formElement.querySelector(
       `.${this._currentInputElement.id}-error`
