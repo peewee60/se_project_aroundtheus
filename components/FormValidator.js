@@ -39,7 +39,67 @@ export default class FormValidator {
     this._buttonElement.disabled = false;
   }
 
-  _toggleButtonState() {
+  _showInputError(inputElement) {
+    console.log(`Showing error on ${inputElement.id}`);
+    console.log(inputElement);
+
+    const errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
+
+    console.log(`Logging Error Element: ${errorElement}`);
+
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.add(this._errorClass);
+  }
+
+  _hideInputError(inputElement) {
+    console.log(`Hiding error on ${inputElement.id}`);
+    console.log(inputElement);
+
+    const errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
+    inputElement.classList.remove(this._inputErrorClass);
+    this._formElement.classList.remove(this._errorClass);
+    errorElement.textContent = "";
+  }
+
+  _checkInputValidity(inputElement) {
+    console.log("Checking input validity");
+    console.log(inputElement);
+    console.log(inputElement.validity.valid);
+
+    if (!inputElement.validity.valid) {
+      // If NOT (!) valid, show the error element
+      this._showInputError(inputElement);
+    } else {
+      // If it's valid, hide the error element
+      this._hideInputError(inputElement);
+    }
+  }
+
+  _setInputEventListeners() {
+    // Disable submit button on page load if fields are empty
+    this.toggleButtonState();
+
+    // Iterate over the array
+    this._inputList.forEach((inputElement) => {
+      //  console.log(inputElement.id);
+
+      // add the input event handler to each field
+      inputElement.addEventListener("input", () => {
+        // Call checkInputValidity() inside the callback
+        this._checkInputValidity(inputElement);
+
+        // Call toggleButtonState() passing and array of inputs and a button
+        this.toggleButtonState();
+      });
+    });
+  }
+
+  toggleButtonState() {
     // If at least one input is invalid
     if (this._hasInvalidInput()) {
       // make the button inactive
@@ -50,70 +110,12 @@ export default class FormValidator {
     }
   }
 
-  _showInputError() {
-    // console.log(this._currentInputElement);
-
-    this._errorElement = this._formElement.querySelector(
-      `.${this._currentInputElement.id}-error`
-    );
-    this._currentInputElement.classList.add(this._inputErrorClass);
-    this._errorElement.textContent = this._inputElement.validationMessage;
-    this._errorElement.classList.add(this._errorClass);
-  }
-
-  _hideInputError() {
-    // console.log(this._currentInputElement);
-
-    this._errorElement = this._formElement.querySelector(
-      `.${this._currentInputElement.id}-error`
-    );
-    this._currentInputElement.classList.remove(this._inputErrorClass);
-    this._formElement.classList.remove(this._errorClass);
-    this._errorElement.textContent = "";
-  }
-
-  _checkInputValidity(evt) {
-    // console.log("Checking input validity");
-    // console.log(evt);
-
-    this._currentInputElement = evt.target;
-
-    if (!this._currentInputElement.validity.valid) {
-      // If NOT (!), show the error element
-      // console.log(`Showing error on ${this._currentInputElement.id}`);
-      this._showInputError();
-    } else {
-      // If it's valid, hide the error element
-      // console.log(`Hiding error on ${this._currentInputElement.id}`);
-      this._hideInputError();
-    }
-  }
-
-  _setInputEventListeners() {
-    // Disable submit button on page load if fields are empty
-    this._toggleButtonState();
-
-    // Iterate over the array
-    this._inputList.forEach((inputElement) => {
-      this._inputElement = inputElement;
-
-      // add the input event handler to each field
-      this._inputElement.addEventListener("input", (evt) => {
-        // Call checkInputValidity() inside the callback
-        this._checkInputValidity(evt);
-
-        // Call _toggleButtonState() passing and array of inputs and a button
-        this._toggleButtonState();
-      });
-    });
-  }
-
   resetValidation() {
-    this._toggleButtonState(); // toggle the submit button
+    this.toggleButtonState(); // toggle the submit button
 
-    // clear error messages for each input field
+    // loop through input elements
     this._inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement);
+      this._hideInputError(inputElement); // clear error messages for input field
     });
   }
 

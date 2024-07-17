@@ -99,11 +99,11 @@ function fillProfileForm() {
 
 function openEditProfileModal() {
   fillProfileForm();
+  formValidators[profileForm.getAttribute("id")].resetValidation();
   openModal(editProfileModal);
 }
 
 function openAddCardModal() {
-  formValidators[addCardForm.getAttribute("id")].resetValidation;
   openModal(addCardModal);
 }
 
@@ -185,7 +185,7 @@ function handleAddCardFormSubmit(evt) {
 
   closeModal(addCardModal);
   addCardForm.reset();
-  formValidators[addCardForm.getAttribute("id")].resetValidation();
+  formValidators[addCardForm.getAttribute("id")].toggleButtonState();
 }
 
 //// Form submit listeners ////
