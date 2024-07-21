@@ -23,21 +23,21 @@ export default class Popup {
     // window.removeEventListener("click", this._handleOutsideClick);
   }
 
-  // _handleEscapeClose(evt) {
-  //   // console.log(evt);
-  //   console.log(this);
+  _handleEscapeClose(evt) {
+    // console.log(evt);
+    console.log(this);
 
-  //   // listens for escape button
-  //   if (evt.key === "Escape") {
-  //     this._popupElement.close();
-  //   }
-  // }
+    // listens for escape button
+    if (evt.key === "Escape") {
+      this.close();
+    }
+  }
 
-  // _handleOutsideClick(evt) {
-  //   if (evt.target.classList.contains("modal_opened")) {
-  //     this._popupElement.close();
-  //   }
-  // }
+  _handleOutsideClick(evt) {
+    if (evt.target.classList.contains("modal_opened")) {
+      this.close();
+    }
+  }
 
   setEventListeners() {
     // sets event listeners
@@ -46,10 +46,10 @@ export default class Popup {
       this.close();
     });
 
-    // // Add event listener to close modal on press of "ESC" key
-    // document.addEventListener("keydown", this._handleEscapeClose);
+    // Add event listener to close modal on press of "ESC" key
+    document.addEventListener("keydown", this._handleEscapeClose.bind(this));
 
-    // // listener to close modal when the overlay is clicked
-    // window.addEventListener("click", this._handleOutsideClick);
+    // listener to close modal when the overlay is clicked
+    window.addEventListener("click", this._handleOutsideClick.bind(this));
   }
 }
