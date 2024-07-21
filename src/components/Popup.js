@@ -16,11 +16,11 @@ export default class Popup {
     //closes popup
     this._popupElement.classList.remove("modal_opened");
 
-    // // Remove event listener to close modal on press of "ESC" key
-    // document.removeEventListener("keydown", this._handleEscapeClose);
+    // Remove event listener to close modal on press of "ESC" key
+    document.removeEventListener("keydown", this._handleEscapeClose);
 
-    // // Remove event listener to close modal when the overlay is clicked
-    // window.removeEventListener("click", this._handleOutsideClick);
+    // Remove event listener to close modal when the overlay is clicked
+    window.removeEventListener("click", this._handleOutsideClick);
   }
 
   _handleEscapeClose(evt) {
