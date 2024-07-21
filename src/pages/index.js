@@ -1,3 +1,13 @@
+// Import CSS
+import "../styles/index.css";
+
+// Import Images
+import logoSrc from "../images/logo.svg";
+import avatarSrc from "../images/jacques_cousteau.jpg";
+import editIcon from "../images/edit_icon.svg";
+import plusIcon from "../images/plus_icon.svg";
+
+// Import Modules
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -15,6 +25,20 @@ import {
 } from "../utils/constants.js";
 
 //// DOM Elements ////
+const headerLogo = document.querySelector(".header__logo");
+headerLogo.src = logoSrc;
+
+const profileAvatar = document.querySelector(".profile__avatar");
+profileAvatar.src = avatarSrc;
+
+//// Buttons ////
+const profileEditButton = document.querySelector(".profile__edit-button");
+const profileEditIcon = profileEditButton.querySelector(".profile__edit-icon");
+profileEditIcon.src = editIcon;
+
+const addCardButton = document.querySelector(".profile__add-button");
+const addCardIcon = addCardButton.querySelector(".profile__add-icon");
+addCardIcon.src = plusIcon;
 
 //// Functions ////
 function openImageModal(data) {
@@ -32,10 +56,6 @@ function fillProfileForm() {
   profileNameInput.value = userInfo.name;
   profileDescriptionInput.value = userInfo.description;
 }
-
-//// Buttons ////
-const profileEditButton = document.querySelector(".profile__edit-button");
-const addCardButton = document.querySelector(".profile__add-button");
 
 // Button Handlers
 function openEditProfileModal() {
