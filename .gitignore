@@ -1,5 +1,8 @@
 .DS_Store
 .vscode
+.npmrc
+node_modules/
+dist/
 scratch.html
 notes.md
 scripts/scratch.js
