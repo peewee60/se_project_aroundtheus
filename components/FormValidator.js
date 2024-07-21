@@ -40,24 +40,15 @@ export default class FormValidator {
   }
 
   _showInputError(inputElement) {
-    console.log(`Showing error on ${inputElement.id}`);
-    console.log(inputElement);
-
     const errorElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
     );
-
-    console.log(`Logging Error Element: ${errorElement}`);
-
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
     errorElement.classList.add(this._errorClass);
   }
 
   _hideInputError(inputElement) {
-    console.log(`Hiding error on ${inputElement.id}`);
-    console.log(inputElement);
-
     const errorElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
     );
@@ -67,10 +58,6 @@ export default class FormValidator {
   }
 
   _checkInputValidity(inputElement) {
-    console.log("Checking input validity");
-    console.log(inputElement);
-    console.log(inputElement.validity.valid);
-
     if (!inputElement.validity.valid) {
       // If NOT (!) valid, show the error element
       this._showInputError(inputElement);
