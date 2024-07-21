@@ -1,134 +1,55 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-
-//// initial data ////
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
-const cardTemplate = "#card-template";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
+import {
+  initialCards,
+  cardTemplate,
+  validationConfig,
+  formValidators,
+  profileNameSelector,
+  profileDescriptionSelector,
+  gallerySelector,
+} from "../utils/constants.js";
 
 //// DOM Elements ////
-const content = document.querySelector(".page__content");
-const profileName = content.querySelector(".profile__name");
-const profileDescription = content.querySelector(".profile__description");
-const cardGallery = content.querySelector(".gallery__cards");
-const editProfileModal = document.querySelector("#edit-profile-modal");
-const addCardModal = document.querySelector("#add-card-modal");
-const imageModal = document.querySelector("#image-modal");
-const imageModalPicture = imageModal.querySelector(".modal__image");
-const imageModalTitle = imageModal.querySelector(".modal__title");
-
-//// Buttons and Inputs ////
-const modalCloseButtons = document.querySelectorAll(".modal__close-button");
-const profileEditButton = content.querySelector(".profile__edit-button");
-const addCardButton = content.querySelector(".profile__add-button");
-
-//// Forms ////
-const profileForm = document.forms["edit-profile-form"];
-const addCardForm = document.forms["add-card-form"];
-
-//// Form Input Fields ////
-const profileNameInput = profileForm.querySelector(".modal__input_type_name");
-const profileDescriptionInput = profileForm.querySelector(
-  ".modal__input_type_description"
-);
-const newCardTitleInput = addCardForm.querySelector(".modal__input_type_title");
-const newCardUrlInput = addCardForm.querySelector(".modal__input_type_url");
 
 //// Functions ////
-const handleEscapeKey = (evt) => {
-  if (evt.key === "Escape") {
-    // find active modal
-    const activeModal = document.querySelector(".modal_opened");
-    closeModal(activeModal);
-  }
-};
-
-const handleOutsideClick = (evt) => {
-  if (evt.target.classList.contains("modal_opened")) {
-    closeModal(evt.target);
-  }
-};
-
-const openModal = (modal) => {
-  modal.classList.add("modal_opened");
-
-  // Add event listener to close modal on press of "ESC" key
-  document.addEventListener("keydown", handleEscapeKey);
-
-  // Add event listener to close modal the overlay is clicked
-  window.addEventListener("click", handleOutsideClick);
-};
-
-const closeModal = (modal) => {
-  modal.classList.remove("modal_opened");
-  // Remove event listener to close modal on press of "ESC" key
-  document.removeEventListener("keydown", handleEscapeKey);
-
-  // Remove event listener to close modal when the overlay is clicked
-  window.removeEventListener("click", handleOutsideClick);
-};
-
-function fillProfileForm() {
-  profileNameInput.value = profileName.innerText;
-  profileDescriptionInput.value = profileDescription.innerText;
-}
-
-function openEditProfileModal() {
-  fillProfileForm();
-  formValidators[profileForm.getAttribute("id")].resetValidation();
-  openModal(editProfileModal);
-}
-
-function openAddCardModal() {
-  openModal(addCardModal);
-}
-
 function openImageModal(data) {
-  imageModalPicture.src = data["link"];
-  imageModalPicture.alt = data["name"];
-  imageModalTitle.textContent = data["name"];
-
-  openModal(imageModal);
+  imgagePopup.open(data);
 }
 
 function createCard(data) {
   const cardElement = new Card(data, cardTemplate, openImageModal);
+
   return cardElement.getView();
 }
 
-///// Event Handlers ////
-// modal close buttons
-modalCloseButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const modal = button.parentElement.parentElement;
-    closeModal(modal);
-  });
-});
+function fillProfileForm() {
+  const userInfo = user.getUserInfo();
+  profileNameInput.value = userInfo.name;
+  profileDescriptionInput.value = userInfo.description;
+}
 
+//// Buttons ////
+const profileEditButton = document.querySelector(".profile__edit-button");
+const addCardButton = document.querySelector(".profile__add-button");
+
+// Button Handlers
+function openEditProfileModal() {
+  fillProfileForm();
+  formValidators[profileForm.getAttribute("id")].resetValidation();
+
+  profilePopup.open();
+}
+
+function openAddCardModal() {
+  addCardPopup.open();
+}
+
+// Button Event Listeners
 // profile edit button click
 profileEditButton.addEventListener("click", () => {
   openEditProfileModal();
@@ -139,28 +60,41 @@ addCardButton.addEventListener("click", () => {
   openAddCardModal();
 });
 
-//// Form handlers ////
+//// Forms ////
+const profileForm = document.forms["edit-profile-form"];
+const addCardForm = document.forms["add-card-form"];
+
+// //// Form Input Fields ////
+const profileNameInput = profileForm.querySelector(".modal__input_type_name");
+const profileDescriptionInput = profileForm.querySelector(
+  ".modal__input_type_description"
+);
+const newCardTitleInput = addCardForm.querySelector(".modal__input_type_title");
+const newCardUrlInput = addCardForm.querySelector(".modal__input_type_url");
+
+//// Form Submit Handlers ////
 // profile form submission handler
 function handleProfileFormSubmit(evt) {
+  // prevent default submit behavior
   evt.preventDefault();
 
-  // get the values of each field from the value property
+  // get the values of input field froms the value property
   // of the corresponding input element
-  const nameInputValue = profileNameInput.value;
-  const descriptionInputValue = profileDescriptionInput.value;
-
   // insert new values into the textContent property of the
   // corresponding profile elements
-  profileName.textContent = nameInputValue;
-  profileDescription.textContent = descriptionInputValue;
 
-  closeModal(editProfileModal);
+  console.log(profileNameInput.value);
+  console.log(profileDescriptionInput.value);
+
+  user.setUserInfo({
+    name: profileNameInput.value,
+    description: profileDescriptionInput.value,
+  });
+
+  // close popup
+  profilePopup.close();
+  // closeModal(editProfileModal);
 }
-
-// const disableButton = (button, inactiveButtonClass) => {
-//   button.classList.add(inactiveButtonClass);
-//   button.disabled = true;
-// };
 
 // Add card form submission handler
 function handleAddCardFormSubmit(evt) {
@@ -181,47 +115,56 @@ function handleAddCardFormSubmit(evt) {
   );
 
   // Add new card to begining of card gallery
-  cardGallery.prepend(newCard);
+  cards.addItem(newCard);
 
-  closeModal(addCardModal);
-  addCardForm.reset();
+  addCardPopup.close();
+  // addCardForm.reset();
   formValidators[addCardForm.getAttribute("id")].toggleButtonState();
 }
 
-//// Form submit listeners ////
-// profile form submit event
-profileForm.addEventListener("submit", handleProfileFormSubmit);
-
-// add card form submit event
-addCardForm.addEventListener("submit", handleAddCardFormSubmit);
-
 //// Render initial cards ////
-initialCards.forEach((item) => {
-  cardGallery.append(createCard(item));
+const cards = new Section(
+  { items: initialCards, renderer: createCard },
+  gallerySelector
+);
+cards.renderItems();
+
+//// Instantiate UserInfo ////
+const user = new UserInfo({ profileNameSelector, profileDescriptionSelector });
+// console.log(user);
+
+//// Popups ////
+// Instantiate popups
+const imgagePopup = new PopupWithImage({ popupSelector: "#image-modal" });
+
+const profilePopup = new PopupWithForm({
+  popupSelector: "#edit-profile-modal",
+  handleFormSubmit: handleProfileFormSubmit,
 });
 
+const addCardPopup = new PopupWithForm({
+  popupSelector: "#add-card-modal",
+  handleFormSubmit: handleAddCardFormSubmit,
+});
+
+// console.log(addCardPopup._popupElement.classList);
+
+// set popup event listeners
+imgagePopup.setEventListeners();
+profilePopup.setEventListeners();
+addCardPopup.setEventListeners();
+
 ////  Enable Form Validation ///
-// Configuration Object
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__submit",
-  inactiveButtonClass: "modal__submit-inactive",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__input-error_active",
-};
-
-// object to store validators
-const formValidators = {};
-
-const enableValidation = (config) => {
+const enableValidation = (validationConfig) => {
   // find all forms and make an array
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  const formList = Array.from(
+    document.querySelectorAll(validationConfig.formSelector)
+  );
 
   // Iterate over array of forms
   formList.forEach((formElement) => {
     // create validator
-    const validator = new FormValidator(config, formElement);
+    const validator = new FormValidator(validationConfig, formElement);
     // get the id of current form element
     const formName = formElement.getAttribute("id");
 
@@ -229,11 +172,7 @@ const enableValidation = (config) => {
     formValidators[formName] = validator;
     // Enable validator
     validator.enableValidation();
-
-    // formElement.addEventListener("submit", (evt) => {
-    //   // cancel default behavior for each form
-    //   evt.preventDefault();
   });
 };
 
-enableValidation(config);
+enableValidation(validationConfig);
