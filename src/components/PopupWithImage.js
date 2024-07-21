@@ -12,7 +12,11 @@ export default class PopupWithImage extends Popup {
     this._imageElement.src = link;
     this._imageElement.alt = name;
     // set the caption's text content
-    this._imageCaption.textContent = caption;
+    if (caption === undefined) {
+      this._imageCaption.textContent = name;
+    } else {
+      this._imageCaption.textContent = caption;
+    }
 
     super.open();
   }
