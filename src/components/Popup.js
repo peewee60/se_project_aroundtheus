@@ -9,7 +9,12 @@ export default class Popup {
   open() {
     // opens popup
     this._popupElement.classList.add("modal_opened");
-    // this.setEventListeners();
+
+    // Add event listener to close modal on press of "ESC" key
+    document.addEventListener("keydown", this._handleEscapeClose.bind(this));
+
+    // listener to close modal when the overlay is clicked
+    window.addEventListener("click", this._handleOutsideClick.bind(this));
   }
 
   close() {
@@ -17,16 +22,13 @@ export default class Popup {
     this._popupElement.classList.remove("modal_opened");
 
     // Remove event listener to close modal on press of "ESC" key
-    document.removeEventListener("keydown", this._handleEscapeClose);
+    document.removeEventListener("keydown", this._handleEscapeClose.bind(this));
 
     // Remove event listener to close modal when the overlay is clicked
-    window.removeEventListener("click", this._handleOutsideClick);
+    window.removeEventListener("click", this._handleOutsideClick.bind(this));
   }
 
   _handleEscapeClose(evt) {
-    // console.log(evt);
-    console.log(this);
-
     // listens for escape button
     if (evt.key === "Escape") {
       this.close();
@@ -45,11 +47,5 @@ export default class Popup {
     this._closeButton.addEventListener("click", () => {
       this.close();
     });
-
-    // Add event listener to close modal on press of "ESC" key
-    document.addEventListener("keydown", this._handleEscapeClose.bind(this));
-
-    // listener to close modal when the overlay is clicked
-    window.addEventListener("click", this._handleOutsideClick.bind(this));
   }
 }

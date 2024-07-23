@@ -53,8 +53,10 @@ function createCard(data) {
 
 function fillProfileForm() {
   const userInfo = user.getUserInfo();
-  profileNameInput.value = userInfo.name;
-  profileDescriptionInput.value = userInfo.description;
+  profilePopup.setInputValues(userInfo);
+
+  // profileNameInput.value = userInfo.name;
+  // profileDescriptionInput.value = userInfo.description;
 }
 
 // Button Handlers
@@ -71,20 +73,16 @@ function openAddCardModal() {
 
 // Button Event Listeners
 // profile edit button click
-profileEditButton.addEventListener("click", () => {
-  openEditProfileModal();
-});
+profileEditButton.addEventListener("click", openEditProfileModal);
 
 // add card button click
-addCardButton.addEventListener("click", () => {
-  openAddCardModal();
-});
+addCardButton.addEventListener("click", openAddCardModal);
 
 //// Forms ////
 const profileForm = document.forms["edit-profile-form"];
 const addCardForm = document.forms["add-card-form"];
 
-// //// Form Input Fields ////
+//// Form Input Fields ////
 const profileNameInput = profileForm.querySelector(".modal__input_type_name");
 const profileDescriptionInput = profileForm.querySelector(
   ".modal__input_type_description"
@@ -102,22 +100,15 @@ function handleProfileFormSubmit(evt) {
   // of the corresponding input element
   // insert new values into the textContent property of the
   // corresponding profile elements
-
-  console.log(profileNameInput.value);
-  console.log(profileDescriptionInput.value);
-
-  user.setUserInfo({
-    name: profileNameInput.value,
-    description: profileDescriptionInput.value,
-  });
+  user.setUserInfo(profilePopup._getInputValues());
 
   // close popup
   profilePopup.close();
-  // closeModal(editProfileModal);
+  profilePopup.reset();
 }
 
 // Add card form submission handler
-function handleAddCardFormSubmit(evt) {
+function handleAddCardFormSubmit(evt, data) {
   evt.preventDefault();
 
   // get the values of each field from the value property
@@ -135,23 +126,22 @@ function handleAddCardFormSubmit(evt) {
   );
 
   // Add new card to begining of card gallery
-  cards.addItem(newCard);
+  cardsSection.addItem(newCard);
 
   addCardPopup.close();
-  // addCardForm.reset();
+  addCardPopup.reset();
   formValidators[addCardForm.getAttribute("id")].toggleButtonState();
 }
 
 //// Render initial cards ////
-const cards = new Section(
+const cardsSection = new Section(
   { items: initialCards, renderer: createCard },
   gallerySelector
 );
-cards.renderItems();
+cardsSection.renderItems();
 
 //// Instantiate UserInfo ////
 const user = new UserInfo({ profileNameSelector, profileDescriptionSelector });
-// console.log(user);
 
 //// Popups ////
 // Instantiate popups
@@ -159,20 +149,20 @@ const imgagePopup = new PopupWithImage({ popupSelector: "#image-modal" });
 
 const profilePopup = new PopupWithForm({
   popupSelector: "#edit-profile-modal",
-  handleFormSubmit: handleProfileFormSubmit,
+  submitHandler: handleProfileFormSubmit,
 });
 
 const addCardPopup = new PopupWithForm({
   popupSelector: "#add-card-modal",
-  handleFormSubmit: handleAddCardFormSubmit,
+  submitHandler: handleAddCardFormSubmit,
 });
-
-// console.log(addCardPopup._popupElement.classList);
 
 // set popup event listeners
 imgagePopup.setEventListeners();
 profilePopup.setEventListeners();
 addCardPopup.setEventListeners();
+
+// console.log(profilePopup);
 
 ////  Enable Form Validation ///
 const enableValidation = (validationConfig) => {

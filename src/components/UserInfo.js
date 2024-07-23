@@ -4,8 +4,6 @@ export default class UserInfo {
     this._descriptionElement = document.querySelector(
       profileDescriptionSelector
     );
-    this._name = this._nameElement.textContent;
-    this._description = this._descriptionElement.textContent;
   }
 
   getUserInfo() {
