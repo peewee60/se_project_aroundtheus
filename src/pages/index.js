@@ -92,38 +92,20 @@ const newCardUrlInput = addCardForm.querySelector(".modal__input_type_url");
 
 //// Form Submit Handlers ////
 // profile form submission handler
-function handleProfileFormSubmit(evt) {
-  // prevent default submit behavior
-  evt.preventDefault();
-
-  // get the values of input field froms the value property
-  // of the corresponding input element
+function handleProfileFormSubmit(data) {
   // insert new values into the textContent property of the
   // corresponding profile elements
-  user.setUserInfo(profilePopup._getInputValues());
+  user.setUserInfo(data);
 
-  // close popup
-  profilePopup.close();
-  profilePopup.reset();
+  // // close popup
+  // profilePopup.close();
+  // profilePopup.reset();
 }
 
 // Add card form submission handler
-function handleAddCardFormSubmit(evt, data) {
-  evt.preventDefault();
-
-  // get the values of each field from the value property
-  // of the corresponding input element
-  const titleInputValue = newCardTitleInput.value;
-  const urlInputValue = newCardUrlInput.value;
-
+function handleAddCardFormSubmit(data) {
   // create new card
-  const newCard = createCard(
-    {
-      name: titleInputValue,
-      link: urlInputValue,
-    },
-    openImageModal
-  );
+  const newCard = createCard(data, openImageModal);
 
   // Add new card to begining of card gallery
   cardsSection.addItem(newCard);
@@ -161,8 +143,6 @@ const addCardPopup = new PopupWithForm({
 imgagePopup.setEventListeners();
 profilePopup.setEventListeners();
 addCardPopup.setEventListeners();
-
-// console.log(profilePopup);
 
 ////  Enable Form Validation ///
 const enableValidation = (validationConfig) => {

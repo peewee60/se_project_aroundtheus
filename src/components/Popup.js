@@ -4,6 +4,8 @@ export default class Popup {
     this._closeButton = this._popupElement.querySelector(
       ".modal__close-button"
     );
+    this._handleEscapeClose = this._handleEscapeClose.bind(this);
+    this._handleOutsideClick = this._handleOutsideClick.bind(this);
   }
 
   open() {
@@ -11,21 +13,22 @@ export default class Popup {
     this._popupElement.classList.add("modal_opened");
 
     // Add event listener to close modal on press of "ESC" key
-    document.addEventListener("keydown", this._handleEscapeClose.bind(this));
+    document.addEventListener("keydown", this._handleEscapeClose);
 
     // listener to close modal when the overlay is clicked
-    window.addEventListener("click", this._handleOutsideClick.bind(this));
+    window.addEventListener("click", this._handleOutsideClick);
   }
 
   close() {
     //closes popup
     this._popupElement.classList.remove("modal_opened");
+    // document.querySelector(".modal__opened").classList.remove("modal_opened");
 
     // Remove event listener to close modal on press of "ESC" key
-    document.removeEventListener("keydown", this._handleEscapeClose.bind(this));
+    document.removeEventListener("keydown", this._handleEscapeClose);
 
     // Remove event listener to close modal when the overlay is clicked
-    window.removeEventListener("click", this._handleOutsideClick.bind(this));
+    window.removeEventListener("click", this._handleOutsideClick);
   }
 
   _handleEscapeClose(evt) {
