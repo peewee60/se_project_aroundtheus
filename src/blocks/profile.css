@@ -95,13 +95,6 @@
     margin: 0 20px;
     max-width: calc(100% - 40px);
   }
-
-  /* .profile__name {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 373px;
-  } */
 }
 
 @media screen and (max-width: 780px) {
