@@ -1,32 +1,45 @@
 export default class Card {
-  constructor(data, cardSelector, handleImageClick) {
+  constructor(
+    data,
+    cardSelector,
+    handleImageClick,
+    handleDeleteCard,
+    handleLikeButton
+  ) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
+    this._id = data._id;
+    this._isLiked = data.isLiked;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._handleDeleteCard = handleDeleteCard;
+    this._handleLikeButton = handleLikeButton;
     this._likeButtonSelector = ".card__like-button";
     this._likeButtonActive = "card__like-button_active";
     this._deleteButtonSelector = ".card__delete-button";
   }
 
-  _handleLikeButton() {
-    this._likeButton.classList.toggle(this._likeButtonActive);
-  }
+  // _handleLikeButton() {
+  //   this._likeButton.classList.toggle(this._likeButtonActive);
+  // }
 
-  _handleDeleteCard() {
-    this._cardElement.remove();
-  }
+  // _handleDeleteCard() {
+  //
+  // }
 
   _setEventListeners() {
     // like button listener
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeButton();
+      this._likeButton.classList.toggle(this._likeButtonActive);
+      // this._handleLikeButton(this._id);
+      this._handleLikeButton(this._id, this._isLiked);
     });
 
     // delete button listener
     this._deleteButton.addEventListener("click", (evt) => {
-      this._handleDeleteCard();
+      this._handleDeleteCard(evt, this._id, this._cardElement);
+      // this._cardElement.remove();
     });
 
     // set event listener for image click
