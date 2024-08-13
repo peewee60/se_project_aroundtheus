@@ -14,9 +14,9 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo({ name, description }) {
+  setUserInfo({ name, about }) {
     // take new user data and add it to the page
     this._nameElement.innerText = name;
-    this._descriptionElement.innerText = description;
+    this._descriptionElement.innerText = about;
   }
 }
