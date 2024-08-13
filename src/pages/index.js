@@ -30,20 +30,23 @@ import Api from "../components/Api.js";
 //// DOM Elements ////
 const headerLogo = document.querySelector(".header__logo");
 headerLogo.src = logoSrc;
-const profileAvatar = document.querySelector(".profile__avatar");
+const profileAvatar = document.querySelector(".profile__avatar-image");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 //// Buttons ////
+const editAvatarIcon = document.querySelector("profile__avatar-edit-icon");
+// editAvatarIcon.src = editIcon;
+
 // Edit Profile Button
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditIcon = profileEditButton.querySelector(".profile__edit-icon");
-profileEditIcon.src = editIcon;
+// profileEditIcon.src = editIcon;
 
 // Add Card Button
 const addCardButton = document.querySelector(".profile__add-button");
 const addCardIcon = addCardButton.querySelector(".profile__add-icon");
-addCardIcon.src = plusIcon;
+// addCardIcon.src = plusIcon;
 
 //// Popups ////
 // Instantiate popups

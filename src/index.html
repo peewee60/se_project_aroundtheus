@@ -24,10 +24,16 @@
       <main class="content">
         <section class="profile page__section">
           <div class="profile__wrapper">
-            <img
-              class="profile__avatar"
-              src="<%=require('./images/jacques_cousteau.jpg')%>"
-              alt="Profile avatar" />
+            <div class="profile__avatar-wrapper">
+              <img
+                class="profile__avatar-image"
+                src="<%=require('./images/jacques_cousteau.jpg')%>"
+                alt="Profile avatar" />
+              <img
+                class="profile__avatar-edit-icon"
+                src="<%=require('./images/edit_icon.svg')%>"
+                alt="Edit avatar" />
+            </div>
             <div class="profile__info">
               <h1 class="profile__name">Jacques Cousteau</h1>
               <button
