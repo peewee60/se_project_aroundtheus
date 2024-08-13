@@ -1,3 +1,7 @@
+//// API ////
+export const token = "1b6c8bb2-024b-4e13-8f16-4e4cfdcb065c";
+export const baseUrl = "https://around-api.en.tripleten-services.com/v1";
+
 //// initial data ////
 export const initialCards = [
   {
