@@ -35,7 +35,7 @@ export default class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data,
+        avatar: data.link,
       }),
     }).then((res) => this._checkStatus(res));
   }
