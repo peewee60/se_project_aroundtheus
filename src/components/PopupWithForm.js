@@ -7,6 +7,7 @@ export default class PopupWithForm extends Popup {
     this._popupForm = this._popupElement.querySelector(".modal__form");
     this._inputList = this._popupForm.querySelectorAll(".modal__input");
     this._data = {};
+    this._submitButton = this._popupForm.querySelector(".modal__submit");
   }
 
   _getInputValues() {
@@ -17,6 +18,19 @@ export default class PopupWithForm extends Popup {
     });
 
     return this._data;
+  }
+
+  _renderLoading(isLoading) {
+    if (isLoading) {
+      // if isLoading is true
+      // change button text to "Submitting..."
+      console.log("loading");
+
+      this._submitButton.textContent = "Submitting...";
+    } else {
+      // else change the text back to "Submit"
+      this._submitButton.textContent = "Save";
+    }
   }
 
   setInputValues(data) {
@@ -33,12 +47,18 @@ export default class PopupWithForm extends Popup {
       // prevent default submit behavior
       evt.preventDefault();
 
-      const data = this._getInputValues();
-      this._handleSubmit(data);
+      this._renderLoading(true);
 
-      // close popup
-      this.close();
-      this.reset();
+      const data = this._getInputValues();
+      this._handleSubmit(data)
+        .then(() => {
+          // close popup and reset form
+          this.close();
+          this.reset();
+        })
+        .finally(() => {
+          this._renderLoading(false);
+        });
     });
 
     // call parents setEventListeners method
