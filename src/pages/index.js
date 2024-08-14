@@ -5,6 +5,7 @@ import "../styles/index.css";
 import logoSrc from "../images/logo.svg";
 import avatarSrc from "../images/jacques_cousteau.jpg";
 import editIcon from "../images/edit_icon.svg";
+import avatarIcon from "../images/edit_avatar.svg";
 import plusIcon from "../images/plus_icon.svg";
 
 // Import Modules
@@ -40,18 +41,18 @@ const profileForm = document.forms["edit-profile-form"];
 const addCardForm = document.forms["add-card-form"];
 
 //// Buttons ////
-const editAvatarIcon = document.querySelector("profile__avatar-edit-icon");
-// editAvatarIcon.src = editIcon;
+const editAvatarIcon = document.querySelector(".profile__avatar-edit-icon");
+editAvatarIcon.src = avatarIcon;
 
 // Edit Profile Button
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditIcon = profileEditButton.querySelector(".profile__edit-icon");
-// profileEditIcon.src = editIcon;
+profileEditIcon.src = editIcon;
 
 // Add Card Button
 const addCardButton = document.querySelector(".profile__add-button");
 const addCardIcon = addCardButton.querySelector(".profile__add-icon");
-// addCardIcon.src = plusIcon;
+addCardIcon.src = plusIcon;
 
 //// Popups ////
 // Instantiate popups
