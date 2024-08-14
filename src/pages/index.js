@@ -30,9 +30,14 @@ import Api from "../components/Api.js";
 //// DOM Elements ////
 const headerLogo = document.querySelector(".header__logo");
 headerLogo.src = logoSrc;
+const profileAvatarWrapper = document.querySelector(".profile__avatar-wrapper");
 const profileAvatar = document.querySelector(".profile__avatar-image");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
+
+//// Forms ////
+const profileForm = document.forms["edit-profile-form"];
+const addCardForm = document.forms["add-card-form"];
 
 //// Buttons ////
 const editAvatarIcon = document.querySelector("profile__avatar-edit-icon");
@@ -67,13 +72,19 @@ const deleteCardPopup = new PopupWithForm({
   submitHandler: handleCardDelete,
 });
 
+const editAvatarPopup = new PopupWithForm({
+  popupSelector: "#edit-avatar-modal",
+  submitHandler: handleAvatarFormSubmit,
+});
+
 // set popup event listeners
 imgagePopup.setEventListeners();
 profilePopup.setEventListeners();
 addCardPopup.setEventListeners();
 deleteCardPopup.setEventListeners();
+editAvatarPopup.setEventListeners();
 
-//// API ////
+//// Instantiate API ////
 const api = new Api({
   baseUrl: baseUrl,
   headers: {
@@ -137,6 +148,10 @@ function fillProfileForm() {
   profilePopup.setInputValues(userInfo);
 }
 
+function openEditAvatarModal() {
+  editAvatarPopup.open();
+}
+
 function openEditProfileModal() {
   fillProfileForm();
   formValidators[profileForm.getAttribute("id")].resetValidation();
@@ -195,15 +210,14 @@ function handleLikeButton(cardId, isLiked) {
 }
 
 //// Button Event Listeners ////
+// avatar image click
+profileAvatarWrapper.addEventListener("click", openEditAvatarModal);
+
 // profile edit button click
 profileEditButton.addEventListener("click", openEditProfileModal);
 
 // add card button click
 addCardButton.addEventListener("click", openAddCardModal);
-
-//// Forms ////
-const profileForm = document.forms["edit-profile-form"];
-const addCardForm = document.forms["add-card-form"];
 
 //// Form Submit Handlers ////
 // Avatar form submission handler
@@ -224,9 +238,9 @@ function handleProfileFormSubmit(data) {
   return api
     .updateUserInfo(data)
     .then(() => {
-  // insert new values into the textContent property of the
-  // corresponding profile elements
-  user.setUserInfo(data);
+      // insert new values into the textContent property of the
+      // corresponding profile elements
+      user.setUserInfo(data);
     })
     .catch((err) => {
       console.error(err); // log the error to the console
@@ -239,15 +253,15 @@ function handleAddCardFormSubmit(data) {
   return api
     .addNewCard(data)
     .then(() => {
-  // create new card
-  const newCard = createCard(data, openImageModal);
+      // create new card
+      const newCard = createCard(data, openImageModal);
 
-  // Add new card to begining of card gallery
-  cardsSection.addItem(newCard);
+      // Add new card to begining of card gallery
+      cardsSection.addItem(newCard);
 
-  addCardPopup.close();
-  addCardPopup.reset();
-  formValidators[addCardForm.getAttribute("id")].toggleButtonState();
+      addCardPopup.close();
+      addCardPopup.reset();
+      formValidators[addCardForm.getAttribute("id")].toggleButtonState();
     })
     .catch((err) => {
       console.error(err); // log the error to the console
