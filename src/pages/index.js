@@ -117,9 +117,6 @@ const cardsSection = new Section(
 api
   .getInitialCards()
   .then((res) => {
-    console.log(res);
-    console.log(res.length);
-
     if (res.length === 0) {
       // If no cards are in the database
       // add initialCards to server
@@ -135,7 +132,6 @@ api
       cardsSection.addItem(newCard);
     });
 
-    console.log(cardsSection);
     cardsSection.renderItems();
   })
   .catch((err) => {
