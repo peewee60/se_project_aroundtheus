@@ -206,25 +206,39 @@ const profileForm = document.forms["edit-profile-form"];
 const addCardForm = document.forms["add-card-form"];
 
 //// Form Submit Handlers ////
+// Avatar form submission handler
+function handleAvatarFormSubmit(data) {
+  console.log("Avatar form submitted.");
+  console.log(data);
+
+  profileAvatar.src = data.link;
+
+  return api.updateUserAvatar(data).catch((err) => {
+    console.error(err); // log the error to the console
+  });
+}
+
 // profile form submission handler
 function handleProfileFormSubmit(data) {
   // Update user data on server
-  api.updateUserInfo(data).catch((err) => {
-    console.error(err); // log the error to the console
-  });
-
+  return api
+    .updateUserInfo(data)
+    .then(() => {
   // insert new values into the textContent property of the
   // corresponding profile elements
   user.setUserInfo(data);
+    })
+    .catch((err) => {
+      console.error(err); // log the error to the console
+    });
 }
 
 // Add card form submission handler
 function handleAddCardFormSubmit(data) {
   // add new card to server
-  api.addNewCard(data).catch((err) => {
-    console.error(err); // log the error to the console
-  });
-
+  return api
+    .addNewCard(data)
+    .then(() => {
   // create new card
   const newCard = createCard(data, openImageModal);
 
@@ -234,6 +248,10 @@ function handleAddCardFormSubmit(data) {
   addCardPopup.close();
   addCardPopup.reset();
   formValidators[addCardForm.getAttribute("id")].toggleButtonState();
+    })
+    .catch((err) => {
+      console.error(err); // log the error to the console
+    });
 }
 
 ////  Enable Form Validation ///
