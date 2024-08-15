@@ -24,13 +24,15 @@ export default class PopupWithForm extends Popup {
     if (isLoading) {
       // if isLoading is true
       // change button text to "Submitting..."
-      console.log("loading");
-
       this._submitButton.textContent = "Submitting...";
     } else {
       // else change the text back to "Submit"
       this._submitButton.textContent = "Save";
     }
+  }
+
+  setButtonText(text) {
+    this._submitButton.textContent = text;
   }
 
   setInputValues(data) {
@@ -50,6 +52,7 @@ export default class PopupWithForm extends Popup {
       this._renderLoading(true);
 
       const data = this._getInputValues();
+
       this._handleSubmit(data)
         .then(() => {
           // close popup and reset form

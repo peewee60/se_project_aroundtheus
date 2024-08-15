@@ -177,16 +177,16 @@ function createCard(data) {
 }
 
 function openDeleteModal(currentCardId, currentCardElement) {
+  deleteCardPopup.setButtonText("Yes");
   deleteCardPopup.open();
   deleteCardPopup.currentCardId = currentCardId;
   deleteCardPopup.currentCardElement = currentCardElement;
 }
 
 function handleCardDelete() {
-  console.log("Deleting Card");
-  console.log(deleteCardPopup.currentCardId);
   deleteCardPopup.currentCardElement.remove();
-  api.deleteCard(deleteCardPopup.currentCardId).catch((err) => {
+
+  return api.deleteCard(deleteCardPopup.currentCardId).catch((err) => {
     console.error("Delete Card Error:", err);
   });
 }
