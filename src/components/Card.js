@@ -20,20 +20,21 @@ export default class Card {
     this._deleteButtonSelector = ".card__delete-button";
   }
 
-  // _handleLikeButton() {
-  //   this._likeButton.classList.toggle(this._likeButtonActive);
-  // }
-
-  // _handleDeleteCard() {
-  //
-  // }
-
   _setEventListeners() {
     // like button listener
     this._likeButton.addEventListener("click", () => {
-      this._likeButton.classList.toggle(this._likeButtonActive);
-      // this._handleLikeButton(this._id);
-      this._handleLikeButton(this._id, this._isLiked);
+      this._handleLikeButton(this._id, this._isLiked)
+        .then((isLiked) => {
+          this._isLiked = isLiked;
+          if (this._isLiked) {
+            this._likeButton.classList.add(this._likeButtonActive);
+          } else {
+            this._likeButton.classList.remove(this._likeButtonActive);
+          }
+        })
+        .catch((err) => {
+          console.error("Like Button Error:", err);
+        });
     });
 
     // delete button listener
@@ -75,6 +76,11 @@ export default class Card {
     // get title element and set attributes
     this._cardTitleElement = this._cardElement.querySelector(".card__title");
     this._cardTitleElement.textContent = this._name;
+
+    // set like button status
+    if (this._isLiked) {
+      this._likeButton.classList.add(this._likeButtonActive);
+    }
 
     // set event listeners
     this._setEventListeners();

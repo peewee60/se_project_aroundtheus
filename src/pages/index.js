@@ -101,8 +101,10 @@ api
   .getUserInfo()
   .then((result) => {
     // process the result
-    profileName.textContent = result.name;
-    profileDescription.textContent = result.about;
+    user.setUserInfo({
+      name: result.name,
+      description: result.about,
+    });
     profileAvatar.src = result.avatar;
   })
   .catch((err) => {
@@ -196,13 +198,21 @@ function handleLikeButton(cardId, isLiked) {
   console.log(isLiked);
 
   if (!isLiked) {
-    api.addLike(cardId).catch((err) => {
-      console.error("Like Button Error:", err);
-    });
+    return api
+      .addLike(cardId)
+      .then(() => true)
+      .catch((err) => {
+        console.error("Like Button Error:", err);
+        return false;
+      });
   } else {
-    api.removeLike(cardId).catch((err) => {
-      console.error("Like Button Error:", err);
-    });
+    return api
+      .removeLike(cardId)
+      .then(() => false)
+      .catch((err) => {
+        console.error("Like Button Error:", err);
+        return true;
+      });
   }
 }
 
@@ -219,9 +229,6 @@ addCardButton.addEventListener("click", openAddCardModal);
 //// Form Submit Handlers ////
 // Avatar form submission handler
 function handleAvatarFormSubmit(data) {
-  console.log("Avatar form submitted.");
-  console.log(data);
-
   profileAvatar.src = data.link;
 
   return api.updateUserAvatar(data).catch((err) => {
@@ -252,9 +259,9 @@ function handleAddCardFormSubmit(data) {
   // add new card to server
   return api
     .addNewCard(data)
-    .then(() => {
-      // create new card
-      const newCard = createCard(data, openImageModal);
+    .then((cardData) => {
+      // create new card with the data returned from server
+      const newCard = createCard(cardData);
 
       // Add new card to begining of card gallery
       cardsSection.addItem(newCard);
