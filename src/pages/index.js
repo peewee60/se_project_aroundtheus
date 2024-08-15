@@ -239,15 +239,18 @@ function handleAvatarFormSubmit(data) {
 // profile form submission handler
 function handleProfileFormSubmit(data) {
   // change propert name of description to about
-  data = { name: data.name, about: data.description };
+  const updatedData = { name: data.name, about: data.description };
 
   // Update user data on server
   return api
-    .updateUserInfo(data)
-    .then(() => {
+    .updateUserInfo(updatedData)
+    .then((res) => {
       // insert new values into the textContent property of the
       // corresponding profile elements
-      user.setUserInfo(data);
+      user.setUserInfo({
+        name: res.name,
+        description: res.about,
+      });
     })
     .catch((err) => {
       console.error(err); // log the error to the console
