@@ -231,6 +231,9 @@ function handleAvatarFormSubmit(data) {
 
 // profile form submission handler
 function handleProfileFormSubmit(data) {
+  // change propert name of description to about
+  data = { name: data.name, about: data.description };
+
   // Update user data on server
   return api
     .updateUserInfo(data)
