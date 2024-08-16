@@ -179,7 +179,6 @@ function createCard(data) {
 }
 
 function openDeleteModal(currentCardId, currentCardElement) {
-  deleteCardPopup.setButtonText("Yes");
   deleteCardPopup.open();
   deleteCardPopup.currentCardId = currentCardId;
   deleteCardPopup.currentCardElement = currentCardElement;

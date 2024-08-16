@@ -8,6 +8,7 @@ export default class PopupWithForm extends Popup {
     this._inputList = this._popupForm.querySelectorAll(".modal__input");
     this._data = {};
     this._submitButton = this._popupForm.querySelector(".modal__submit");
+    this._submiButtonText = this._submitButton.textContent;
   }
 
   _getInputValues() {
@@ -20,19 +21,19 @@ export default class PopupWithForm extends Popup {
     return this._data;
   }
 
-  _renderLoading(isLoading) {
+  setButtonText(text) {
+    this._submitButton.textContent = text;
+  }
+
+  _renderLoading(isLoading, loadingText = "Saving...") {
     if (isLoading) {
       // if isLoading is true
       // change button text to "Submitting..."
-      this._submitButton.textContent = "Submitting...";
+      this.setButtonText(loadingText);
     } else {
       // else change the text back to "Submit"
-      this._submitButton.textContent = "Save";
+      this.setButtonText(this._submiButtonText);
     }
-  }
-
-  setButtonText(text) {
-    this._submitButton.textContent = text;
   }
 
   setInputValues(data) {
