@@ -113,9 +113,7 @@ api
       avatar: result.avatar,
     });
   })
-  .catch((err) => {
-    console.error(err); // log the error to the console
-  });
+  .catch(console.error);
 
 //// Render initial cards ////
 const cardsSection = new Section(
@@ -143,9 +141,7 @@ api
 
     cardsSection.renderItems();
   })
-  .catch((err) => {
-    console.error(err); // log the error to the console
-  });
+  .catch(console.error);
 
 //// Functions ////
 function fillProfileForm() {
@@ -194,9 +190,7 @@ function handleCardDelete() {
   return api
     .deleteCard(deleteCardPopup.currentCardId)
     .then(deleteCardPopup.currentCardElement.remove())
-    .catch((err) => {
-      console.error("Delete Card Error:", err);
-    });
+    .catch(console.error);
 }
 
 function handleLikeButton(cardId, isLiked) {
@@ -207,18 +201,12 @@ function handleLikeButton(cardId, isLiked) {
     return api
       .addLike(cardId)
       .then(() => true)
-      .catch((err) => {
-        console.error("Like Button Error:", err);
-        return false;
-      });
+      .catch(console.error);
   } else {
     return api
       .removeLike(cardId)
       .then(() => false)
-      .catch((err) => {
-        console.error("Like Button Error:", err);
-        return true;
-      });
+      .catch(console.error);
   }
 }
 
@@ -238,9 +226,7 @@ function handleAvatarFormSubmit(data) {
   return api
     .updateUserAvatar(data)
     .then((profileAvatar.src = data.link))
-    .catch((err) => {
-      console.error(err); // log the error to the console
-    });
+    .catch(console.error);
 }
 
 // profile form submission handler
@@ -259,9 +245,7 @@ function handleProfileFormSubmit(data) {
         description: res.about,
       });
     })
-    .catch((err) => {
-      console.error(err); // log the error to the console
-    });
+    .catch(console.error);
 }
 
 // Add card form submission handler
@@ -280,9 +264,7 @@ function handleAddCardFormSubmit(data) {
       addCardPopup.reset();
       formValidators[addCardForm.getAttribute("id")].toggleButtonState();
     })
-    .catch((err) => {
-      console.error(err); // log the error to the console
-    });
+    .catch(console.error);
 }
 
 ////  Enable Form Validation ///
