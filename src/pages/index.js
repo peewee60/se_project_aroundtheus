@@ -119,8 +119,8 @@ const cardsSection = new Section(
 
 api
   .getInitialCards()
-  .then((res) => {
-    if (res.length === 0) {
+  .then((result) => {
+    if (result.length === 0) {
       // If no cards are in the database
       // add initialCards to server
       initialCards.forEach((card) => {
@@ -128,7 +128,7 @@ api
       });
     }
 
-    res.forEach((item) => {
+    result.forEach((item) => {
       // create new card
       const newCard = createCard(item, openImageModal);
       // Add new card to begining of card gallery
