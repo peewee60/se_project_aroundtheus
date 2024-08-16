@@ -34,6 +34,7 @@ export const initialCards = [
 export const cardTemplate = "#card-template";
 export const profileNameSelector = ".profile__name";
 export const profileDescriptionSelector = ".profile__description";
+export const avatarSelector = ".profile__avatar-image";
 export const gallerySelector = ".gallery__cards";
 
 //// Form Validation Configuration Object

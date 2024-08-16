@@ -25,6 +25,7 @@ import {
   gallerySelector,
   baseUrl,
   token,
+  avatarSelector,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
 
@@ -32,7 +33,8 @@ import Api from "../components/Api.js";
 const headerLogo = document.querySelector(".header__logo");
 headerLogo.src = logoSrc;
 const profileAvatarWrapper = document.querySelector(".profile__avatar-wrapper");
-const profileAvatar = document.querySelector(".profile__avatar-image");
+const profileAvatar = document.querySelector(avatarSelector);
+
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
@@ -95,7 +97,11 @@ const api = new Api({
 });
 
 //// Instantiate UserInfo ////
-const user = new UserInfo({ profileNameSelector, profileDescriptionSelector });
+const user = new UserInfo({
+  profileNameSelector,
+  profileDescriptionSelector,
+  avatarSelector,
+});
 
 api
   .getUserInfo()
@@ -104,8 +110,8 @@ api
     user.setUserInfo({
       name: result.name,
       description: result.about,
+      avatar: result.avatar,
     });
-    profileAvatar.src = result.avatar;
   })
   .catch((err) => {
     console.error(err); // log the error to the console
@@ -228,11 +234,12 @@ addCardButton.addEventListener("click", openAddCardModal);
 //// Form Submit Handlers ////
 // Avatar form submission handler
 function handleAvatarFormSubmit(data) {
-  profileAvatar.src = data.link;
-
-  return api.updateUserAvatar(data).catch((err) => {
-    console.error(err); // log the error to the console
-  });
+  return api
+    .updateUserAvatar(data)
+    .then((profileAvatar.src = data.link))
+    .catch((err) => {
+      console.error(err); // log the error to the console
+    });
 }
 
 // profile form submission handler
