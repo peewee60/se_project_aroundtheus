@@ -243,10 +243,10 @@ function handleSubmit(request, popupInstance, loadingText = "Saving...") {
 
 // Avatar form submission handler
 function handleAvatarFormSubmit(data) {
-  return api
-    .updateUserAvatar(data)
-    .then((profileAvatar.src = data.link))
-    .catch(console.error);
+  function makeRequest() {
+    return api.updateUserAvatar(data).then((profileAvatar.src = data.link));
+  }
+  handleSubmit(makeRequest, editAvatarPopup);
 }
 
 // profile form submission handler
@@ -265,30 +265,13 @@ function handleProfileFormSubmit(data) {
   }
 
   handleSubmit(makeRequest, profilePopup);
-
-  // change propert name of description to about
-  // const updatedData = { name: data.name, about: data.description };
-
-  // Update user data on server
-  // return api
-  //   .updateUserInfo(updatedData)
-  //   .then((res) => {
-  //     // insert new values into the textContent property of the
-  //     // corresponding profile elements
-  //     user.setUserInfo({
-  //       name: res.name,
-  //       description: res.about,
-  //     });
-  //   })
-  // .catch(console.error);
 }
 
 // Add card form submission handler
 function handleAddCardFormSubmit(data) {
-  // add new card to server
-  return api
-    .addNewCard(data)
-    .then((cardData) => {
+  function makeRequest() {
+    // add new card to server
+    return api.addNewCard(data).then((cardData) => {
       // create new card with the data returned from server
       const newCard = createCard(cardData);
 
@@ -298,8 +281,10 @@ function handleAddCardFormSubmit(data) {
       addCardPopup.close();
       addCardPopup.reset();
       formValidators[addCardForm.getAttribute("id")].toggleButtonState();
-    })
-    .catch(console.error);
+    });
+  }
+
+  handleSubmit(makeRequest, addCardPopup);
 }
 
 ////  Enable Form Validation ///
