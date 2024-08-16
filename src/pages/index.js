@@ -191,11 +191,12 @@ function openDeleteModal(currentCardId, currentCardElement) {
 }
 
 function handleCardDelete() {
-  deleteCardPopup.currentCardElement.remove();
-
-  return api.deleteCard(deleteCardPopup.currentCardId).catch((err) => {
-    console.error("Delete Card Error:", err);
-  });
+  return api
+    .deleteCard(deleteCardPopup.currentCardId)
+    .then(deleteCardPopup.currentCardElement.remove())
+    .catch((err) => {
+      console.error("Delete Card Error:", err);
+    });
 }
 
 function handleLikeButton(cardId, isLiked) {
