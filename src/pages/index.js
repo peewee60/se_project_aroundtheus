@@ -106,10 +106,11 @@ const user = new UserInfo({
 api
   .getUserInfo()
   .then((result) => {
+    console.log(result);
     // process the result
     user.setUserInfo({
       name: result.name,
-      description: result.about,
+      about: result.about,
       avatar: result.avatar,
     });
   })
@@ -146,7 +147,13 @@ api
 //// Functions ////
 function fillProfileForm() {
   const userInfo = user.getUserInfo();
-  profilePopup.setInputValues(userInfo);
+
+  console.log(`Fill Profile Form: userInfo`);
+  console.log(userInfo);
+
+  // reformat data (change about property to description)
+  const updatedData = { name: userInfo.name, description: userInfo.about };
+  profilePopup.setInputValues(updatedData);
 }
 
 function openEditAvatarModal() {
@@ -221,6 +228,19 @@ profileEditButton.addEventListener("click", openEditProfileModal);
 addCardButton.addEventListener("click", openAddCardModal);
 
 //// Form Submit Handlers ////
+function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+  // change the button text
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      popupInstance.close();
+    })
+    .catch(console.error)
+    .finally(() => {
+      popupInstance.renderLoading(false);
+    });
+}
+
 // Avatar form submission handler
 function handleAvatarFormSubmit(data) {
   return api
@@ -234,18 +254,33 @@ function handleProfileFormSubmit(data) {
   // change propert name of description to about
   const updatedData = { name: data.name, about: data.description };
 
-  // Update user data on server
-  return api
-    .updateUserInfo(updatedData)
-    .then((res) => {
-      // insert new values into the textContent property of the
-      // corresponding profile elements
+  function makeRequest() {
+    return api.updateUserInfo(updatedData).then((userData) => {
       user.setUserInfo({
-        name: res.name,
-        description: res.about,
+        name: userData.name,
+        about: userData.about,
+        avatar: userData.avatar,
       });
-    })
-    .catch(console.error);
+    });
+  }
+
+  handleSubmit(makeRequest, profilePopup);
+
+  // change propert name of description to about
+  // const updatedData = { name: data.name, about: data.description };
+
+  // Update user data on server
+  // return api
+  //   .updateUserInfo(updatedData)
+  //   .then((res) => {
+  //     // insert new values into the textContent property of the
+  //     // corresponding profile elements
+  //     user.setUserInfo({
+  //       name: res.name,
+  //       description: res.about,
+  //     });
+  //   })
+  // .catch(console.error);
 }
 
 // Add card form submission handler

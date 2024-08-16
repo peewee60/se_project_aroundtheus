@@ -15,14 +15,14 @@ export default class UserInfo {
     // return object containing information about the user
     return {
       name: this._nameElement.innerText,
-      description: this._descriptionElement.innerText,
+      about: this._descriptionElement.innerText,
       avatar: this._avatarElement.src,
     };
   }
 
-  setUserInfo({ name, description, avatar }) {
+  setUserInfo({ name, about, avatar }) {
     this._nameElement.innerText = name;
-    this._descriptionElement.innerText = description;
+    this._descriptionElement.innerText = about;
     this._avatarElement.src = avatar ? avatar : this._avatarElement.src;
   }
 }

@@ -24,6 +24,7 @@ export default class Api {
   }
 
   updateUserInfo(data) {
+    console.log(data);
     return this._request(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
