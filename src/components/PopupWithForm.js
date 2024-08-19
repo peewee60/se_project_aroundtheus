@@ -57,16 +57,7 @@ export default class PopupWithForm extends Popup {
 
       const data = this._getInputValues();
 
-      console.log(data);
       this._handleSubmit(data);
-      // .then(() => {
-      //   // close popup and reset form
-      //   this.close();
-      //   this.reset();
-      // })
-      // .finally(() => {
-      //   this.renderLoading(false);
-      // });
     });
 
     // call parents setEventListeners method

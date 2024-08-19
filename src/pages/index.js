@@ -106,13 +106,8 @@ const user = new UserInfo({
 api
   .getUserInfo()
   .then((result) => {
-    console.log(result);
     // process the result
-    user.setUserInfo({
-      name: result.name,
-      about: result.about,
-      avatar: result.avatar,
-    });
+    user.setUserInfo(result);
   })
   .catch(console.error);
 
@@ -125,22 +120,7 @@ const cardsSection = new Section(
 api
   .getInitialCards()
   .then((result) => {
-    if (result.length === 0) {
-      // If no cards are in the database
-      // add initialCards to server
-      initialCards.forEach((card) => {
-        api.addNewCard(card);
-      });
-    }
-
-    result.forEach((item) => {
-      // create new card
-      const newCard = createCard(item, openImageModal);
-      // Add new card to begining of card gallery
-      cardsSection.addItem(newCard);
-    });
-
-    cardsSection.renderItems();
+    cardsSection.renderItems(result);
   })
   .catch(console.error);
 
@@ -193,13 +173,6 @@ function openDeleteModal(currentCardId, currentCardElement) {
   deleteCardPopup.currentCardElement = currentCardElement;
 }
 
-function handleCardDelete() {
-  return api
-    .deleteCard(deleteCardPopup.currentCardId)
-    .then(deleteCardPopup.currentCardElement.remove())
-    .catch(console.error);
-}
-
 function handleLikeButton(cardId, isLiked) {
   console.log(cardId);
   console.log(isLiked);
@@ -241,10 +214,24 @@ function handleSubmit(request, popupInstance, loadingText = "Saving...") {
     });
 }
 
+// Card delete confirmation form submission handler
+function handleCardDelete() {
+  function makeRequest() {
+    return api.deleteCard(deleteCardPopup.currentCardId).then(() => {
+      deleteCardPopup.currentCardElement.remove();
+      deleteCardPopup.currentCardElement = null; // clear current card element
+      deleteCardPopup.currentCardId = null; // clear current card ID
+    });
+  }
+  handleSubmit(makeRequest, deleteCardPopup);
+}
+
 // Avatar form submission handler
 function handleAvatarFormSubmit(data) {
   function makeRequest() {
-    return api.updateUserAvatar(data).then((profileAvatar.src = data.link));
+    return api.updateUserAvatar(data).then((data) => {
+      user.setUserInfo(data);
+    });
   }
   handleSubmit(makeRequest, editAvatarPopup);
 }
@@ -256,14 +243,9 @@ function handleProfileFormSubmit(data) {
 
   function makeRequest() {
     return api.updateUserInfo(updatedData).then((userData) => {
-      user.setUserInfo({
-        name: userData.name,
-        about: userData.about,
-        avatar: userData.avatar,
-      });
+      user.setUserInfo(userData);
     });
   }
-
   handleSubmit(makeRequest, profilePopup);
 }
 
@@ -278,12 +260,10 @@ function handleAddCardFormSubmit(data) {
       // Add new card to begining of card gallery
       cardsSection.addItem(newCard);
 
-      addCardPopup.close();
       addCardPopup.reset();
       formValidators[addCardForm.getAttribute("id")].toggleButtonState();
     });
   }
-
   handleSubmit(makeRequest, addCardPopup);
 }
 
