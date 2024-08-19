@@ -24,10 +24,16 @@
       <main class="content">
         <section class="profile page__section">
           <div class="profile__wrapper">
-            <img
-              class="profile__avatar"
-              src="<%=require('./images/jacques_cousteau.jpg')%>"
-              alt="Profile avatar" />
+            <div class="profile__avatar-wrapper">
+              <img
+                class="profile__avatar-image"
+                src="<%=require('./images/jacques_cousteau.jpg')%>"
+                alt="Profile avatar" />
+              <img
+                class="profile__avatar-edit-icon"
+                src="<%=require('./images/edit_icon.svg')%>"
+                alt="Edit avatar" />
+            </div>
             <div class="profile__info">
               <h1 class="profile__name">Jacques Cousteau</h1>
               <button
@@ -73,6 +79,35 @@
       <footer class="footer page__section">
         <p class="footer__text">&copy; 2022 Around the U.S.</p>
       </footer>
+    </div>
+    <!-- Edit avatar modal -->
+    <div class="modal" id="edit-avatar-modal">
+      <div class="modal__container modal__container_type_form">
+        <button
+          class="modal__close-button"
+          type="button"
+          name="close modal"></button>
+        <h2 class="modal__title modal__title_type_form">
+          Change profile picture
+        </h2>
+        <form class="modal__form" id="edit-avatar-form" novalidate>
+          <div class="modal__input-wrapper">
+            <input
+              id="url-input"
+              class="modal__input modal__input_type_url"
+              type="url"
+              name="link"
+              placeholder="Avatar URL"
+              required />
+            <span class="url-input-error modal__input-error">
+              This field is required.
+            </span>
+          </div>
+          <button class="modal__submit" type="submit" name="submit">
+            Save
+          </button>
+        </form>
+      </div>
     </div>
     <!-- Edit profile modal-->
     <div class="modal" id="edit-profile-modal">
@@ -155,6 +190,19 @@
           <button class="modal__submit" type="submit" name="submit">
             Save
           </button>
+        </form>
+      </div>
+    </div>
+    <!-- Delete card modal -->
+    <div class="modal" id="delete-card-modal">
+      <div class="modal__container modal__container_type_form">
+        <button
+          class="modal__close-button"
+          type="button"
+          name="close modal"></button>
+        <h2 class="modal__title modal__title_type_form">Are you sure?</h2>
+        <form class="modal__form" id="delete-card-form" novalidate>
+          <button class="modal__submit" type="submit" name="submit">Yes</button>
         </form>
       </div>
     </div>

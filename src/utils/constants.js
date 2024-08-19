@@ -1,3 +1,7 @@
+//// API ////
+export const token = "1b6c8bb2-024b-4e13-8f16-4e4cfdcb065c";
+export const baseUrl = "https://around-api.en.tripleten-services.com/v1";
+
 //// initial data ////
 export const initialCards = [
   {
@@ -30,6 +34,7 @@ export const initialCards = [
 export const cardTemplate = "#card-template";
 export const profileNameSelector = ".profile__name";
 export const profileDescriptionSelector = ".profile__description";
+export const avatarSelector = ".profile__avatar-image";
 export const gallerySelector = ".gallery__cards";
 
 //// Form Validation Configuration Object
