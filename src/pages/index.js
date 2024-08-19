@@ -223,7 +223,7 @@ function handleCardDelete() {
       deleteCardPopup.currentCardId = null; // clear current card ID
     });
   }
-  handleSubmit(makeRequest, deleteCardPopup);
+  handleSubmit(makeRequest, deleteCardPopup, "Deleting...");
 }
 
 // Avatar form submission handler
